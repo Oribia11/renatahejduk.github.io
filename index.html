@@ -1,27 +1,1296 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="mode-blueprint">
+
 <head>
   <meta charset="utf-8">
-  <title>Renata Hejduk — Architect</title>
-  <meta name="description" content="Website of Renata Hejduk, Warsaw-based residential architect. Full site coming soon.">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Renata Hejduk — Residential Architect</title>
+  <meta name="description"
+    content="Step into the work of Warsaw-based architect Renata Hejduk — vintage Art Deco meets contemporary minimalism.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Inter:wght@300;400;600&display=swap"
+    rel="stylesheet">
   <style>
-    body { margin:0; height:100vh; display:grid; place-items:center; 
-           font-family: Arial, sans-serif; background:#faf8f5; color:#1F4E44; }
-    main { text-align:center; padding:2rem; max-width:600px; }
-    h1 { font-size:2.5rem; margin:0 0 1rem; }
-    a { color:#C6A664; text-decoration:none; }
-    a:hover { text-decoration:underline; }
+    /* ====================== DESIGN TOKENS ====================== */
+    :root {
+      --bone: #F6F1E7;
+      --midnight: #0B2430;
+      /* blueprint background */
+      --ink: #222;
+      --brass: #B78B38;
+      --sage: #5E7D6A;
+      --terra: #B75C3B;
+      --grid: #124B61;
+      /* cyan-ish blueprint lines */
+      --card: #fff;
+      --maxw: 1200px;
+      --r: 12px;
+      --shadow: 0 12px 30px rgba(0, 0, 0, .1);
+      --accent: #B78B38;
+      --text: var(--ink);
+      --muted: rgba(0, 0, 0, .6);
+      --card-border: rgba(0, 0, 0, .08);
+      --btn-text: var(--text);
+    }
+
+    /* full-site theme overrides for blueprint vs built */
+    .mode-blueprint {
+      --bone: #0B2430;
+      /* page background */
+      --ink: #E9F6FF;
+      /* primary text */
+      --card: #071A24;
+      /* card backgrounds */
+      --accent: #6EC1D6;
+      /* blueprint cyan accents */
+      --sage: #9FD7E6;
+      --shadow: none;
+      --text: #E9F6FF;
+      --muted: rgba(233, 246, 255, .85);
+      --card-border: rgba(255, 255, 255, .06);
+      --btn-text: var(--text);
+    }
+
+    .mode-built {
+      /* revert to lighter theme (keeps root defaults) */
+      --bone: #F6F1E7;
+      --ink: #222;
+      --card: #fff;
+      --accent: #B78B38;
+      --sage: #5E7D6A;
+      --shadow: 0 12px 30px rgba(0, 0, 0, .1);
+    }
+
+    * {
+      box-sizing: border-box
+    }
+
+    html,
+    body {
+      height: 100%
+    }
+
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      line-height: 1.55;
+      color: var(--text);
+      background: var(--bone);
+      overflow-x: hidden;
+    }
+
+    h1,
+    h2,
+    h3 {
+      font-family: Fraunces, serif;
+      color: var(--sage);
+      letter-spacing: .2px;
+      margin: .2em 0 .4em
+    }
+
+    h1 {
+      font-size: clamp(2.2rem, 5vw, 3.6rem)
+    }
+
+    h2 {
+      font-size: clamp(1.6rem, 3.4vw, 2.2rem)
+    }
+
+    a {
+      color: var(--sage);
+      text-decoration: none
+    }
+
+    .container {
+      max-width: var(--maxw);
+      margin: 0 auto;
+      padding: 0 20px
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 12px 18px;
+      border: 1px solid var(--accent);
+      color: var(--btn-text);
+      background: transparent;
+      transition: .3s;
+      letter-spacing: .3px
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      background: var(--accent);
+      color: var(--btn-text)
+    }
+
+    .btn.solid {
+      background: var(--sage);
+      color: #fff;
+      border-color: var(--sage)
+    }
+
+    .btn.solid:hover {
+      background: #355a49
+    }
+
+    .hr {
+      height: 1px;
+      background: linear-gradient(90deg, var(--accent), transparent);
+      margin: 20px 0 26px
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: var(--r);
+      box-shadow: var(--shadow)
+    }
+
+    /* ====================== NAV ====================== */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      /* adapt header background to current theme */
+      background: color-mix(in srgb, var(--card) 86%, transparent 14%);
+      backdrop-filter: blur(6px);
+      border-bottom: 1px solid var(--card-border)
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 20px;
+      gap: 16px
+    }
+
+    .brand {
+      display: flex;
+      gap: 10px;
+      align-items: center
+    }
+
+    .brand .logo {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      border: 1px solid var(--accent);
+      position: relative;
+      overflow: hidden
+    }
+
+    .brand .logo::before {
+      content: "";
+      position: absolute;
+      inset: 6px;
+      border: 1px solid var(--accent);
+      clip-path: polygon(0 50%, 50% 0, 100% 50%, 50% 100%)
+    }
+
+    .brand .name {
+      font-family: Fraunces, serif;
+      color: var(--sage);
+      font-weight: 700
+    }
+
+    nav ul {
+      display: flex;
+      gap: 18px;
+      margin: 0;
+      padding: 0;
+      list-style: none
+    }
+
+    nav a {
+      position: relative
+    }
+
+    nav a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 100%;
+      bottom: -3px;
+      height: 1.5px;
+      background: linear-gradient(90deg, var(--accent), transparent);
+      transition: right .35s
+    }
+
+    nav a:hover::after {
+      right: 0
+    }
+
+    .lang {
+      display: flex;
+      gap: 8px
+    }
+
+    .lang button {
+      background: none;
+      border: 1px solid var(--card-border);
+      padding: 6px 10px;
+      border-radius: 18px;
+      cursor: pointer;
+      font: inherit;
+      color: var(--muted)
+    }
+
+    .lang button.active {
+      border-color: var(--accent);
+      color: var(--btn-text)
+    }
+
+    /* ====================== HERO — BLUEPRINT → BUILT SPACE ====================== */
+    .hero {
+      position: relative;
+      min-height: 88vh;
+      display: grid;
+      place-items: center;
+      overflow: hidden
+    }
+
+    .mode-blueprint .hero {
+      background: var(--midnight);
+      color: #E9F6FF
+    }
+
+    /* make buttons readable on the dark blueprint background */
+    .mode-blueprint .btn {
+      color: #E9F6FF;
+      border-color: rgba(255, 255, 255, 0.28);
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .mode-blueprint .btn:hover {
+      transform: translateY(-2px);
+      background: rgba(255, 255, 255, 0.12);
+      color: #0B2430;
+    }
+
+    .mode-blueprint .btn.solid {
+      background: var(--accent);
+      color: #0B2430;
+      border-color: var(--accent);
+    }
+
+    .mode-blueprint .btn.solid:hover {
+      background: #ffd38a;
+    }
+
+    .mode-built .hero {
+      background: var(--bone);
+      color: var(--ink)
+    }
+
+    .hero .grid {
+      position: absolute;
+      inset: -10%;
+      background:
+        linear-gradient(transparent 95%, rgba(255, 255, 255, .06) 0) 0 0/100% 42px,
+        linear-gradient(90deg, transparent 95%, rgba(255, 255, 255, .06) 0) 0 0/42px 100%;
+      opacity: .8;
+      pointer-events: none;
+      mix-blend-mode: screen;
+    }
+
+    .mode-built .hero .grid {
+      opacity: 0
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      padding: 60px 20px;
+      max-width: 980px
+    }
+
+    .hero-title {
+      margin: 0 0 10px;
+      font-size: clamp(2.2rem, 5vw, 3.6rem);
+      line-height: 1.1
+    }
+
+    .hero-sub {
+      margin: 0 auto 18px;
+      max-width: 760px;
+      opacity: .9
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap
+    }
+
+    .enter {
+      margin-top: 14px
+    }
+
+    /* blueprint plan (draws in) */
+    .plan {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      display: grid;
+      place-items: center;
+      pointer-events: none
+    }
+
+    .plan svg {
+      width: min(1100px, 96vw);
+      height: auto
+    }
+
+    .plan path,
+    .plan circle,
+    .plan rect {
+      stroke: #6EC1D6;
+      fill: none;
+      stroke-width: 1.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      opacity: .95;
+      stroke-dasharray: 900;
+      stroke-dashoffset: 900;
+      animation: draw 2.6s ease forwards
+    }
+
+    .plan .d2 {
+      animation-delay: .3s
+    }
+
+    .plan .d3 {
+      animation-delay: .6s
+    }
+
+    .plan .d4 {
+      animation-delay: .9s
+    }
+
+    @keyframes draw {
+      to {
+        stroke-dashoffset: 0
+      }
+    }
+
+    /* built room (revealed after enter) */
+    .room {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      display: grid;
+      place-items: center;
+      opacity: 0;
+      transform: translateY(20px) scale(.98);
+      transition: opacity .9s ease, transform .9s cubic-bezier(.2, .6, .2, 1)
+    }
+
+    .mode-built .room {
+      opacity: 1;
+      transform: none
+    }
+
+    .room svg {
+      width: min(1100px, 96vw);
+      height: auto;
+      filter: drop-shadow(0 18px 40px rgba(0, 0, 0, .08))
+    }
+
+    /* hide blueprint when built */
+    .mode-built .plan {
+      opacity: 0;
+      transition: opacity .6s ease
+    }
+
+    /* ====================== GENERIC SECTIONS ====================== */
+    section {
+      padding: 70px 0
+    }
+
+    /* lightweight reveal for better performance (no blur) */
+    .reveal {
+      opacity: 0;
+      transform: translateY(12px);
+      will-change: opacity, transform;
+    }
+
+    .reveal.revealed {
+      opacity: 1;
+      transform: none;
+      transition: opacity .6s cubic-bezier(.2, .9, .2, 1), transform .6s cubic-bezier(.2, .9, .2, 1);
+    }
+
+    /* ====================== ABOUT ====================== */
+    #about .wrap {
+      display: grid;
+      grid-template-columns: 1.05fr 1.25fr;
+      gap: 28px
+    }
+
+    .portrait {
+      position: relative;
+      background: var(--card);
+      aspect-ratio: 4/5;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--card-border)
+    }
+
+    .portrait::before {
+      content: "";
+      position: absolute;
+      inset: 14px;
+      border: 2px solid var(--accent);
+      clip-path: polygon(5% 5%, 95% 5%, 95% 95%, 5% 95%, 5% 60%, 10% 60%, 10% 90%, 90% 90%, 90% 10%, 10% 10%, 10% 40%, 5% 40%)
+    }
+
+    .portrait svg {
+      width: 80%;
+      opacity: .9
+    }
+
+    .bio p {
+      margin: .5em 0 1em
+    }
+
+    /* ====================== PORTFOLIO ====================== */
+    #portfolio .intro {
+      margin-bottom: 22px;
+      color: var(--muted)
+    }
+
+    .proj {
+      margin: 26px 0;
+      border-left: 3px solid var(--accent);
+      padding-left: 16px
+    }
+
+    .slider {
+      position: relative;
+      overflow: hidden;
+      border-radius: var(--r);
+      border: 1px solid rgba(0, 0, 0, .08);
+      background: #fff
+    }
+
+    .slides {
+      display: flex;
+      transition: transform .6s cubic-bezier(.2, .7, .2, 1)
+    }
+
+    .slide {
+      min-width: 100%;
+      aspect-ratio: 16/9;
+      display: grid;
+      place-items: center;
+      background: color-mix(in srgb, var(--card) 92%, var(--bone) 8%);
+    }
+
+    .arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255, 255, 255, .9);
+      border: 1px solid var(--accent);
+      width: 44px;
+      height: 44px;
+      display: grid;
+      place-items: center;
+      cursor: pointer
+    }
+
+    .arrow:hover {
+      background: var(--accent);
+      color: var(--btn-text)
+    }
+
+    .arrow.prev {
+      left: 10px
+    }
+
+    .arrow.next {
+      right: 10px
+    }
+
+    .prog {
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 3px;
+      width: 0;
+      background: var(--accent)
+    }
+
+    .proj-meta {
+      display: flex;
+      gap: 14px;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-top: 10px
+    }
+
+    .pdf {
+      padding: 8px 12px;
+      border: 1px dashed var(--accent)
+    }
+
+    /* ====================== SERVICES ====================== */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 22px;
+      align-items: start;
+    }
+
+    .svc {
+      padding: 26px;
+      border-radius: 12px;
+      border: 1px solid rgba(0, 0, 0, .06);
+      background: linear-gradient(180deg, var(--card), color-mix(in srgb, var(--card) 92%, black 8%));
+      position: relative;
+      overflow: hidden;
+      transition: transform .36s cubic-bezier(.2, .9, .2, 1), box-shadow .36s;
+      box-shadow: 0 8px 22px rgba(0, 0, 0, .06);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    /* subtle left accent stripe */
+    .svc::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 6px;
+      background: linear-gradient(180deg, var(--accent), var(--sage));
+      border-top-left-radius: 12px;
+      border-bottom-left-radius: 12px;
+      transform-origin: left center;
+      transition: transform .4s;
+    }
+
+    .svc h3 {
+      margin: 0 0 6px;
+      font-size: 1.05rem
+    }
+
+    .svc p {
+      margin: 0;
+      color: var(--muted)
+    }
+
+    .svc:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 24px 40px rgba(0, 0, 0, .12)
+    }
+
+    .svc:hover::before {
+      transform: scaleY(1.02)
+    }
+
+    /* emphasize the middle (concept) card slightly */
+    .services-grid .svc:nth-child(2) {
+      background: linear-gradient(180deg, color-mix(in srgb, var(--card) 95%, var(--accent) 5%), var(--card));
+      border-color: var(--card-border);
+      transform-origin: center;
+    }
+
+    /* ====================== CONTACT ====================== */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1.3fr 1fr;
+      gap: 22px
+    }
+
+    form .row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px
+    }
+
+    form input,
+    form textarea {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid var(--card-border);
+      background: var(--card);
+      border-radius: 6px;
+      font: inherit;
+      color: var(--text)
+    }
+
+    form textarea {
+      min-height: 120px;
+      resize: vertical
+    }
+
+    .watermark {
+      background: repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(0, 0, 0, .04) 40px);
+      border: 1px solid rgba(0, 0, 0, .08);
+      display: grid;
+      place-items: center;
+      text-align: center;
+      padding: 20px;
+      overflow: hidden
+    }
+
+    .watermark svg g {
+      animation: dash 10s linear infinite
+    }
+
+    @keyframes dash {
+      0% {
+        stroke-dasharray: 0 1000
+      }
+
+      50% {
+        stroke-dasharray: 200 1000
+      }
+
+      100% {
+        stroke-dasharray: 0 1000
+      }
+    }
+
+    /* ====================== FOOTER ====================== */
+    footer {
+      padding: 38px 0 64px;
+      border-top: 1px solid rgba(0, 0, 0, .08);
+      margin-top: 30px
+    }
+
+    .accentbar {
+      height: 4px;
+      background: linear-gradient(90deg, var(--sage), var(--accent));
+      margin-bottom: 12px
+    }
+
+    /* ====================== RESPONSIVE ====================== */
+    @media (max-width:980px) {
+      #about .wrap {
+        grid-template-columns: 1fr
+      }
+
+      .contact-grid {
+        grid-template-columns: 1fr
+      }
+
+      .services-grid {
+        grid-template-columns: 1fr 1fr
+      }
+    }
+
+    @media (max-width:600px) {
+      .services-grid {
+        grid-template-columns: 1fr
+      }
+
+      .nav {
+        flex-direction: column;
+        align-items: flex-start
+      }
+    }
+
+    /* project modular layout */
+    .proj-grid {
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      gap: 16px;
+      align-items: center
+    }
+
+    .proj-preview {
+      display: flex;
+      flex-direction: column;
+      gap: 8px
+    }
+
+    .proj-preview img {
+      width: 100%;
+      height: auto;
+      border-radius: 6px;
+      display: block
+    }
+
+    .proj-actions {
+      display: flex;
+      gap: 8px;
+      margin-top: 10px
+    }
+
+    /* viewer modal */
+    .viewer {
+      position: fixed;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0, 0, 0, 0.6);
+      z-index: 120
+    }
+
+    .viewer.active {
+      display: flex
+    }
+
+    .viewer .card {
+      width: min(1100px, 94vw);
+      max-height: 86vh;
+      overflow: auto;
+      padding: 12px
+    }
+
+    .viewer iframe,
+    .viewer img {
+      width: 100%;
+      height: 76vh;
+      border: 0;
+      display: block
+    }
+
+    .viewer .meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 8px
+    }
+
+    .viewer .meta .close {
+      margin-left: auto
+    }
+
+    .unavailable {
+      color: #999;
+      font-style: italic
+    }
   </style>
 </head>
+
 <body>
-  <main>
-    <h1>Renata Hejduk</h1>
-    <p>Residential architecture · Warsaw, Poland</p>
-    <p><em>Website under construction</em></p>
-    <p><a href="mailto:renata.hejduk@wp.pl">renata.hejduk@wp.pl</a> · 
-       <a href="tel:+48608580682">+48 608 580 682</a> · 
-       <a href="https://instagram.com/renatahejduk">Instagram</a></p>
-  </main>
+
+  <header>
+    <div class="container nav">
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <div class="name">Renata Hejduk</div>
+      </div>
+      <nav aria-label="Primary">
+        <ul>
+          <li><a href="#hero" data-i18n="nav_home">Home</a></li>
+          <li><a href="#about" data-i18n="nav_about">About</a></li>
+          <li><a href="#portfolio" data-i18n="nav_portfolio">Portfolio</a></li>
+          <li><a href="#services" data-i18n="nav_services">Services</a></li>
+          <li><a href="#contact" data-i18n="nav_contact">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="lang">
+        <button id="lang-en" class="active">EN</button>
+        <button id="lang-pl">PL</button>
+        <button id="modeToggle" class="btn" title="Toggle site mode" data-i18n="mode_enter">SCHEMATIC</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===================== HERO ===================== -->
+  <section id="hero" class="hero">
+    <div class="grid" aria-hidden="true"></div>
+
+    <!-- Blueprint plan -->
+    <div class="plan" aria-hidden="true">
+      <svg viewBox="0 0 1200 700">
+        <!-- grid frame -->
+        <rect x="80" y="60" width="1040" height="560" class="d1" />
+        <!-- central arch -->
+        <path class="d2" d="M420 620 V320 A180 180 0 0 1 780 320 V620" />
+        <!-- deco lines -->
+        <path class="d3" d="M600 320 V620" />
+        <path class="d3" d="M500 400 H700" />
+        <path class="d3" d="M470 470 H730" />
+        <!-- sofa block -->
+        <rect class="d4" x="360" y="520" width="480" height="60" rx="8" />
+        <rect class="d4" x="380" y="480" width="200" height="40" rx="8" />
+        <rect class="d4" x="620" y="480" width="200" height="40" rx="8" />
+        <!-- lamp -->
+        <circle class="d4" cx="860" cy="470" r="20" />
+        <path class="d4" d="M860 490 V600" />
+      </svg>
+    </div>
+
+    <!-- Built room -->
+    <div class="room" aria-hidden="true">
+      <svg viewBox="0 0 1200 700" role="img" aria-label="Vintage meets modern interior">
+        <!-- back wall -->
+        <rect x="0" y="0" width="1200" height="500" fill="#F3EEE4" />
+        <!-- arched opening -->
+        <path d="M420 500 V320 A180 180 0 0 1 780 320 V500" fill="#ECE4D7" stroke="#B78B38" stroke-width="2" />
+        <g stroke="#B78B38" stroke-width="1.5" opacity=".9">
+          <path d="M600 320 V500" />
+          <path d="M520 385 H680" />
+          <path d="M490 450 H710" />
+        </g>
+        <!-- sofa -->
+        <g>
+          <rect x="360" y="460" width="480" height="60" rx="8" fill="#E6E0D7" />
+          <rect x="380" y="420" width="200" height="50" rx="12" fill="#EFEAE2" />
+          <rect x="620" y="420" width="200" height="50" rx="12" fill="#EFEAE2" />
+          <rect x="360" y="520" width="480" height="10" fill="#D8D1C6" />
+        </g>
+        <!-- lamp -->
+        <g>
+          <rect x="858" y="360" width="6" height="160" fill="#B78B38" />
+          <circle cx="861" cy="360" r="18" fill="#FAF6EF" stroke="#B78B38" stroke-width="2" />
+        </g>
+        <!-- plant -->
+        <g>
+          <rect x="300" y="450" width="40" height="50" rx="6" fill="#D9D0C7" />
+          <path d="M320 450 C320 420 290 420 300 390" fill="none" stroke="#5E7D6A" stroke-width="3" />
+          <path d="M320 450 C320 420 350 420 340 390" fill="none" stroke="#5E7D6A" stroke-width="3" />
+        </g>
+        <!-- floor -->
+        <path d="M0 500 L1200 500 L1200 700 L0 700 Z" fill="#ECE6DE" />
+        <g opacity=".28" fill="#BFB7AD">
+          <circle cx="200" cy="610" r="4" />
+          <circle cx="360" cy="560" r="3" />
+          <circle cx="520" cy="630" r="4" />
+          <circle cx="840" cy="590" r="3" />
+          <circle cx="980" cy="640" r="4" />
+        </g>
+        <rect x="0" y="500" width="1200" height="2" fill="#B78B38" />
+      </svg>
+    </div>
+
+    <div class="hero-inner container">
+      <h1 class="hero-title" data-i18n="hero_headline">Designing timeless homes for modern living</h1>
+      <p class="hero-sub" data-i18n="hero_sub">From blueprint to atmosphere — vintage elegance refined for contemporary
+        life.</p>
+      <div class="hero-cta">
+        <a class="btn" href="#contact" data-i18n="cta_consult">Book a consultation</a>
+        <a class="btn solid" href="https://calendly.com/renatahejduk/consultation" target="_blank" rel="noopener"
+          data-i18n="cta_calendly">Open Calendly</a>
+      </div>
+      <div class="enter">
+        <button id="enter" class="btn" title="Enter the space" data-i18n="enter_btn">ENTER THE SPACE</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== ABOUT ===================== -->
+  <section id="about" class="container">
+    <div class="hr"></div>
+    <h2 data-i18n="about_title">About</h2>
+    <div class="wrap reveal">
+      <div class="portrait card" aria-label="Portrait frame">
+        <img src="assets/Profile_pic.jpeg" alt="Portrait of Renata Hejduk"
+          style="width:100%;height:auto;display:block;object-fit:cover">
+      </div>
+      <div class="bio">
+        <p data-i18n="bio_1">Hi, I’m Renata. I used to be a Marketing Officer, but my real passion has always been
+          shaping spaces. Now I’m stepping fully into architecture as an independent junior architect, blending
+          storytelling with design.</p>
+        <p data-i18n="bio_2">My favorite projects bring together vintage elegance with modern living — creating homes
+          that feel both timeless and personal.</p>
+        <p><strong>Warsaw, Poland</strong> · <a href="mailto:renata.hejduk@wp.pl">renata.hejduk@wp.pl</a> · <a
+            href="tel:+48608580682">+48 608 580 682</a></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== PORTFOLIO ===================== -->
+  <section id="portfolio" class="container">
+    <div class="hr"></div>
+    <h2 data-i18n="portfolio_title">Portfolio</h2>
+    <p class="intro" data-i18n="portfolio_intro">Two projects that show the blend: vintage geometry + modern calm.</p>
+
+    <!-- Projekt A (Mieszkanie jednoosobowe) - modular -->
+    <article class="proj reveal" data-id="A" data-preview="Projekt A/ProjA-prev1.png|Projekt A/ProjA-prev2.png"
+      data-viz="Projekt A/Project A - wizualizacje.pdf|Projekt A/Projekt A - wizualizacje_szafa.pdf"
+      data-schem="Projekt A/Projekt A - plany.pdf">
+      <h3 data-i18n="projA_title">Projekt A — Mieszkanie jednoosobowe</h3>
+      <div class="proj-grid">
+        <div class="proj-preview">
+          <img src="Projekt A/ProjA-prev1.png" alt="Preview 1" />
+          <img src="Projekt A/ProjA-prev2.png" alt="Preview 2" />
+        </div>
+        <div>
+          <p class="proj-desc" data-i18n="projA_desc">A: Mieszkanie jednoosobowe dla aktora teatralnego. Styl Art Deco.
+          </p>
+          <div class="proj-actions">
+            <button class="btn" data-action="viz" data-i18n="btn_viz">View visualizations</button>
+            <button class="btn" data-action="schem" data-i18n="btn_schem">View schematics</button>
+          </div>
+        </div>
+      </div>
+      <div class="proj-meta">
+        <span data-i18n="projA_note">Renowacja mieszkania w Warszawie — mosiężne linie, łukowe przejścia i
+          zabudowy.</span>
+      </div>
+    </article>
+
+    <!-- Projekt B (Kuchnia w domu jednorodzinnym) - modular -->
+    <article class="proj reveal" data-id="B" data-preview="Projekt B/ProjB-prev1.png|Projekt B/ProjB-prev2.png"
+      data-viz="Projekt B/Zrzut ekranu 2025-07-13 o 16.47.06.png|Projekt B/Zrzut ekranu 2025-07-13 o 16.54.26.png|Projekt B/Zrzut ekranu 2025-07-13 o 18.31.28.png|Projekt B/Zrzut ekranu 2025-07-13 o 18.40.32.png"
+      data-schem="">
+      <h3 data-i18n="projB_title">Projekt B — Kuchnia w domu jednorodzinnym</h3>
+      <div class="proj-grid">
+        <div class="proj-preview">
+          <img src="Projekt B/ProjB-prev1.png" alt="Preview 1" />
+          <img src="Projekt B/ProjB-prev2.png" alt="Preview 2" />
+        </div>
+        <div>
+          <p class="proj-desc" data-i18n="projB_desc">B: Redesign mojego wlasnego salonu i kuchni. Mam nadzieje ze
+            niedlugo wejdzie w zycie.</p>
+          <div class="proj-actions">
+            <button class="btn" data-action="viz" data-i18n="btn_viz">View visualizations</button>
+            <button class="btn" data-action="schem" data-i18n="btn_schem">View schematics</button>
+          </div>
+        </div>
+      </div>
+      <div class="proj-meta">
+        <span data-i18n="projB_note">Studium koncepcyjne kuchni: materiały, układ i światło.</span>
+      </div>
+    </article>
+  </section>
+
+  <!-- ===================== SERVICES ===================== -->
+  <section id="services" class="container">
+    <div class="hr"></div>
+    <h2 data-i18n="services_title">Services — Work with Me</h2>
+    <p class="intro" data-i18n="services_intro">From quick consultations to full residential transformations.</p>
+
+    <div class="services-grid reveal">
+      <div class="svc card">
+        <h3 data-i18n="svc1_title">Design Consultation</h3>
+        <p data-i18n="svc1_text">A focused session to review your space, style, and priorities. Clear next steps within
+          48 hours.</p>
+      </div>
+      <div class="svc card">
+        <h3 data-i18n="svc2_title">Concept & Visualization</h3>
+        <p data-i18n="svc2_text">Moodboards, material palettes, and 3D visuals that bring the story of your home to
+          life.</p>
+      </div>
+      <div class="svc card">
+        <h3 data-i18n="svc3_title">Plans & Guidance</h3>
+        <p data-i18n="svc3_text">Architectural plans, finishes, and on-call advice during implementation.</p>
+      </div>
+    </div>
+
+    <div style="margin-top:18px">
+      <a class="btn" href="#contact" data-i18n="cta_consult">Book a consultation</a>
+    </div>
+  </section>
+
+  <!-- ===================== CONTACT ===================== -->
+  <section id="contact" class="container">
+    <div class="hr"></div>
+    <h2 data-i18n="contact_title">Contact</h2>
+    <div class="contact-grid reveal">
+      <form id="contactForm" class="card" onsubmit="return mailtoSubmit(event)">
+        <div class="row">
+          <div><label for="name" data-i18n="form_name">Name</label><br><input id="name" required
+              placeholder="Your name"></div>
+          <div><label for="email" data-i18n="form_email">Email</label><br><input id="email" type="email" required
+              placeholder="you@example.com"></div>
+        </div>
+        <div class="row" style="grid-template-columns:1fr">
+          <div><label for="msg" data-i18n="form_message">Message</label><br><textarea id="msg" required
+              placeholder="Tell me about your project..."></textarea></div>
+        </div>
+        <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+          <button class="btn solid" type="submit" data-i18n="form_send">Send</button>
+          <a class="btn" href="https://calendly.com/renatahejduk/consultation" target="_blank" rel="noopener"
+            data-i18n="cta_calendly">Open Calendly</a>
+          <span style="color:#666"><span data-i18n="contact_or">or</span> <a
+              href="mailto:renata.hejduk@wp.pl">renata.hejduk@wp.pl</a> · <a href="tel:+48608580682">+48 608 580
+              682</a></span>
+        </div>
+      </form>
+      <div class="watermark card">
+        <div>
+          <h3 data-i18n="contact_follow">Follow</h3>
+          <p><a class="hover-underline" href="https://instagram.com/renatahejduk" target="_blank"
+              rel="me noopener">Instagram</a></p>
+          <svg viewBox="0 0 600 180" aria-hidden="true" style="max-width:420px;margin:auto">
+            <g stroke="var(--accent)" fill="none" stroke-width="1.5">
+              <path d="M10 170 H590" />
+              <path d="M50 160 H550" />
+              <path d="M100 140 H500" />
+              <rect x="180" y="20" width="240" height="120" />
+              <path d="M180 80 H420" />
+              <path d="M300 20 V140" />
+            </g>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="container">
+    <div class="accentbar" aria-hidden="true"></div>
+    <p>© <span id="y"></span> <strong>Renata Hejduk</strong> · Warsaw, Poland · <a
+        href="mailto:renata.hejduk@wp.pl">renata.hejduk@wp.pl</a></p>
+  </footer>
+
+  <!-- Viewer modal -->
+  <div class="viewer" id="viewer" aria-hidden="true">
+    <div class="card">
+      <div class="meta">
+        <strong id="viewerTitle" data-i18n="viewer_title">Preview</strong>
+        <div>
+          <button class="btn" id="viewerPrev" data-i18n="viewer_prev">Prev</button>
+          <button class="btn" id="viewerNext" data-i18n="viewer_next">Next</button>
+          <button class="btn" id="viewerClose" data-i18n="viewer_close">Close</button>
+        </div>
+      </div>
+      <div id="viewerBody"></div>
+      <div id="viewerNote" class="unavailable" style="display:none" data-i18n="viewer_na">Not available yet</div>
+    </div>
+  </div>
+
+  <!-- Schema -->
+  <script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Person","name":"Renata Hejduk","jobTitle":"Architect","address":{"@type":"PostalAddress","addressLocality":"Warsaw","addressCountry":"PL"},"email":"mailto:renata.hejduk@wp.pl","telephone":"+48 608 580 682","url":"https://renatahejduk-architect.com","sameAs":["https://instagram.com/renatahejduk"],"worksFor":{"@type":"ProfessionalService","name":"Renata Hejduk Architecture","serviceType":"Residential Architecture","areaServed":"Warsaw, Poland"}}
+</script>
+
+  <script>
+    /* ===== Simple i18n ===== */
+    const i18n = {
+      en: {
+        nav_home: "Home", nav_about: "About", nav_portfolio: "Portfolio", nav_services: "Services", nav_contact: "Contact",
+        hero_headline: "Designing timeless homes for modern living",
+        hero_sub: "From blueprint to atmosphere — vintage elegance refined for contemporary life.",
+        cta_consult: "Book a consultation", cta_calendly: "Open Calendly", enter_btn: "ENTER THE SPACE",
+        mode_enter: "ENTER SPACES", mode_back: "RETURN TO SCHEMATICS",
+        about_title: "About",
+        bio_1: "Hi, I’m Renata. I used to be a Marketing Officer, but my real passion has always been shaping spaces. Now I’m stepping fully into architecture as an independent junior architect, blending storytelling with design.",
+        bio_2: "My favorite projects bring together vintage elegance with modern living — creating homes that feel both timeless and personal.",
+        portfolio_title: "Portfolio", portfolio_intro: "Two projects that show the blend: vintage geometry + modern calm.",
+        projA_title: "Projekt A — Mieszkanie jednoosobowe", projA_note: "Renovation — brass lines, arched openings, integrated storage.",
+        projB_title: "Projekt B — Kuchnia (wizualizacje)", projB_note: "Concept studies: tone-on-tone palettes, curved millwork, and light.",
+        projA_desc: "A: One-person apartment for a theatre actor. Art Deco style.",
+        projB_desc: "B: Redesign of my own living room and kitchen. Hoping to realize soon.",
+        viewer_prev: "Prev", viewer_next: "Next", viewer_close: "Close", viewer_na: "Not available yet",
+        viewer_title: "Preview", viewer_viz: "— Visualizations", viewer_schem: "— Schematics",
+        viewer_title: "Preview",
+        placeholder_name: "Your name",
+        placeholder_email: "you@example.com",
+        placeholder_message: "Tell me about your project...",
+        services_title: "Services — Work with Me", services_intro: "From quick consultations to full residential transformations.",
+        svc1_title: "Design Consultation", svc1_text: "A focused session to review your space, style, and priorities. Clear next steps within 48 hours.",
+        svc2_title: "Concept & Visualization", svc2_text: "Moodboards, material palettes, and 3D visuals that bring the story of your home to life.",
+        svc3_title: "Plans & Guidance", svc3_text: "Architectural plans, finishes, and on-call advice during implementation.",
+        contact_title: "Contact", form_name: "Name", form_email: "Email", form_message: "Message", form_send: "Send", contact_or: "or", contact_follow: "Follow"
+      },
+      pl: {
+        nav_home: "Start", nav_about: "O mnie", nav_portfolio: "Portfolio", nav_services: "Oferta", nav_contact: "Kontakt",
+        hero_headline: "Projektuję ponadczasowe domy dla współczesnego życia",
+        hero_sub: "Od planu do atmosfery — elegancja vintage dopracowana dla współczesności.",
+        cta_consult: "Umów konsultację", cta_calendly: "Otwórz Calendly", enter_btn: "WEJDŹ DO PRZESTRZENI",
+        mode_enter: "WEJDŹ DO PRZESTRZENI", mode_back: "WRÓĆ DO SCHEMATU",
+        about_title: "O mnie",
+        bio_1: "Cześć, jestem Renata. Przez lata pracowałam w marketingu, ale moją prawdziwą pasją zawsze było kształtowanie przestrzeni. Teraz w pełni poświęcam się architekturze jako niezależna architektka, łącząc modern z vintage.",
+        bio_2: "Najbardziej lubię projekty, które łączą elegancję vintage ze współczesnym życiem — tworząc domy ponadczasowe i osobiste.",
+        portfolio_title: "Portfolio", portfolio_intro: "Dwa projekty łączące geometrię vintage ze spokojem nowoczesności.",
+        projA_title: "Projekt A — Mieszkanie jednoosobowe", projA_note: "Renowacja mieszkania w Warszawie — mosiężne linie, łukowe przejścia i zabudowy.",
+        projB_title: "Projekt B — Kuchnia (wizualizacje)", projB_note: "Studia koncepcyjne: ton-w-ton, miękkie łuki i światło.",
+        projA_desc: "A: Mieszkanie jednoosobowe dla aktora teatralnego. Styl Art Deco.",
+        projB_desc: "B: Redesign mojego wlasnego salonu i kuchni. Mam nadzieje ze niedlugo wejdzie w zycie.",
+        viewer_prev: "Poprzedni", viewer_next: "Następny", viewer_close: "Zamknij", viewer_na: "Jeszcze niedostępne",
+        viewer_title: "Podgląd", viewer_viz: "— Wizualizacje", viewer_schem: "— Rysunki",
+        viewer_title: "Podgląd",
+        placeholder_name: "Twoje imię i nazwisko",
+        placeholder_email: "ty@example.com",
+        placeholder_message: "Opowiedz o swoim projekcie...",
+        services_title: "Oferta — Współpraca", services_intro: "Od krótkich konsultacji po pełne metamorfozy mieszkań.",
+        svc1_title: "Konsultacja projektowa", svc1_text: "Skoncentrowane spotkanie o Twojej przestrzeni, stylu i priorytetach. Jasne kroki w 48 godzin.",
+        svc2_title: "Koncepcja i wizualizacje", svc2_text: "Moodboardy, palety materiałów i wizualizacje 3D opowiadające historię domu.",
+        svc3_title: "Rysunki i doradztwo", svc3_text: "Rysunki, wykończenia i wsparcie w trakcie realizacji.",
+        contact_title: "Kontakt", form_name: "Imię i nazwisko", form_email: "E-mail", form_message: "Wiadomość", form_send: "Wyślij", contact_or: "albo", contact_follow: "Śledź"
+      }
+    };
+    const setLang = (lang) => {
+      document.documentElement.lang = (lang === 'pl') ? 'pl' : 'en';
+      document.querySelectorAll("[data-i18n]").forEach(el => {
+        const k = el.getAttribute("data-i18n");
+        if (i18n[lang][k]) el.textContent = i18n[lang][k];
+      });
+      // set placeholders explicitly (inputs/textarea)
+      const phName = i18n[lang].placeholder_name || '';
+      const phEmail = i18n[lang].placeholder_email || '';
+      const phMsg = i18n[lang].placeholder_message || '';
+      const nameEl = document.getElementById('name'); if (nameEl) nameEl.placeholder = phName;
+      const emailEl = document.getElementById('email'); if (emailEl) emailEl.placeholder = phEmail;
+      const msgEl = document.getElementById('msg'); if (msgEl) msgEl.placeholder = phMsg;
+      // viewer title sync
+      const vTitle = document.getElementById('viewerTitle'); if (vTitle && i18n[lang].viewer_title) vTitle.textContent = i18n[lang].viewer_title;
+      document.getElementById("lang-en").classList.toggle("active", lang === 'en');
+      document.getElementById("lang-pl").classList.toggle("active", lang === 'pl');
+      // refresh mode labels after language change
+      const currentMode = document.documentElement.classList.contains('mode-built') ? 'built' : 'blueprint';
+      setMode(currentMode);
+    };
+    document.getElementById("lang-en").onclick = () => setLang('en');
+    document.getElementById("lang-pl").onclick = () => setLang('pl');
+
+    /* ===== Mode toggle (schematic <-> built) ===== */
+    function setMode(mode) {
+      if (mode === 'built') {
+        document.documentElement.classList.remove('mode-blueprint');
+        document.documentElement.classList.add('mode-built');
+      } else {
+        document.documentElement.classList.remove('mode-built');
+        document.documentElement.classList.add('mode-blueprint');
+      }
+      // update labels
+      const lang = document.documentElement.lang === 'pl' ? 'pl' : 'en';
+      const enterBtn = document.getElementById('enter');
+      const headerBtn = document.getElementById('modeToggle');
+      if (mode === 'built') {
+        enterBtn.textContent = i18n[lang].mode_back || 'RETURN TO SCHEMATICS';
+        headerBtn.textContent = i18n[lang].mode_back || 'RETURN';
+        enterBtn.setAttribute('aria-pressed', 'true');
+      } else {
+        enterBtn.textContent = i18n[lang].mode_enter || 'ENTER BUILDING MODE';
+        headerBtn.textContent = i18n[lang].mode_enter || 'SCHEMATIC';
+        enterBtn.setAttribute('aria-pressed', 'false');
+      }
+    }
+
+    function toggleMode() {
+      const current = document.documentElement.classList.contains('mode-built') ? 'built' : 'blueprint';
+      setMode(current === 'built' ? 'blueprint' : 'built');
+    }
+
+    document.getElementById('enter').addEventListener('click', toggleMode);
+    document.getElementById('modeToggle').addEventListener('click', toggleMode);
+    // initialize mode labels
+    setMode(document.documentElement.classList.contains('mode-built') ? 'built' : 'blueprint');
+
+    // now initialize language (refreshes UI text + mode labels)
+    setLang('en');
+
+    /* ===== Reveal on scroll ===== */
+    const io = new IntersectionObserver((es) => { es.forEach(en => { if (en.isIntersecting) { en.target.classList.add('revealed'); io.unobserve(en.target) } }) }, { threshold: .12 });
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+    /* ===== Sliders with autoplay ===== */
+    document.querySelectorAll('.slider').forEach(sl => {
+      const track = sl.querySelector('.slides');
+      const slides = sl.querySelectorAll('.slide');
+      const prog = sl.querySelector('.prog');
+      let idx = 0, timer = null, anim = null, dur = 4500;
+      const set = () => track.style.transform = `translateX(${-idx * 100}%)`;
+      const play = () => {
+        stop(); prog.style.width = '0%'; anim = prog.animate([{ width: '0%' }, { width: '100%' }], { duration: dur, easing: 'linear' });
+        timer = setTimeout(() => { idx = (idx + 1) % slides.length; set(); play(); }, dur);
+      }
+      const stop = () => { clearTimeout(timer); if (anim) anim.cancel(); }
+      sl.querySelector('.next').onclick = () => { idx = (idx + 1) % slides.length; set(); play(); }
+      sl.querySelector('.prev').onclick = () => { idx = (idx - 1 + slides.length) % slides.length; set(); play(); }
+      sl.addEventListener('mouseenter', stop); sl.addEventListener('mouseleave', play);
+      // touch
+      let sx = 0, dx = 0; track.addEventListener('touchstart', e => { sx = e.touches[0].clientX; stop() }, { passive: true });
+      track.addEventListener('touchmove', e => { dx = e.touches[0].clientX - sx }, { passive: true });
+      track.addEventListener('touchend', () => { if (Math.abs(dx) > 40) { idx = (idx + (dx < 0 ? 1 : -1) + slides.length) % slides.length; set(); } dx = 0; play(); });
+      set(); play();
+    });
+
+    /* ===== Contact mailto ===== */
+    function mailtoSubmit(e) {
+      e.preventDefault();
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const msg = document.getElementById('msg').value.trim();
+      const subject = encodeURIComponent("New inquiry from " + name);
+      const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${msg}`);
+      window.location.href = `mailto:renata.hejduk@wp.pl?subject=${subject}&body=${body}`;
+      return false;
+    }
+
+    /* ===== Year ===== */
+    document.getElementById('y').textContent = new Date().getFullYear();
+
+    /* ===== Project viewer ===== */
+    (function () {
+      const viewer = document.getElementById('viewer');
+      const body = document.getElementById('viewerBody');
+      const title = document.getElementById('viewerTitle');
+      const note = document.getElementById('viewerNote');
+      const prevBtn = document.getElementById('viewerPrev');
+      const nextBtn = document.getElementById('viewerNext');
+      const closeBtn = document.getElementById('viewerClose');
+      let items = [], idx = 0;
+
+      function showItem(i) {
+        if (!items || items.length === 0) { body.innerHTML = ''; note.style.display = ''; prevBtn.disabled = true; nextBtn.disabled = true; return }
+        idx = (i + items.length) % items.length;
+        body.innerHTML = '';
+        note.style.display = 'none';
+        const it = items[idx];
+        prevBtn.disabled = items.length <= 1;
+        nextBtn.disabled = items.length <= 1;
+        if (it.type === 'img') {
+          const img = document.createElement('img'); img.src = encodeURI(it.src); img.alt = it.alt || ''; body.appendChild(img);
+        } else if (it.type === 'pdf') {
+          const iframe = document.createElement('iframe'); iframe.src = encodeURI(it.src); iframe.title = it.alt || 'PDF'; body.appendChild(iframe);
+        }
+      }
+
+      function openViewer(list, projectTitle) {
+        items = list; idx = 0; title.textContent = projectTitle || 'Preview';
+        if (!items || items.length === 0) { body.innerHTML = ''; note.style.display = ''; }
+        else showItem(0);
+        viewer.classList.add('active'); viewer.setAttribute('aria-hidden', 'false');
+      }
+
+      function closeViewer() { viewer.classList.remove('active'); viewer.setAttribute('aria-hidden', 'true'); }
+
+      prevBtn.addEventListener('click', () => showItem(idx - 1));
+      nextBtn.addEventListener('click', () => showItem(idx + 1));
+      closeBtn.addEventListener('click', closeViewer);
+      viewer.addEventListener('click', (e) => { if (e.target === viewer) closeViewer(); });
+
+      // wire project buttons
+      document.querySelectorAll('.proj').forEach(p => {
+        p.querySelectorAll('[data-action]').forEach(btn => {
+          btn.addEventListener('click', () => {
+            const action = btn.getAttribute('data-action');
+            const title = (p.querySelector('h3') || {}).textContent || '';
+            if (action === 'viz') {
+              // visualizations may be images or PDFs; handle both
+              const raw = p.getAttribute('data-viz') || '';
+              const parts = raw.split('|').map(s => s.trim()).filter(Boolean);
+              const list = parts.map(src => {
+                const isPdf = src.toLowerCase().endsWith('.pdf');
+                return { type: isPdf ? 'pdf' : 'img', src, alt: title };
+              });
+              // localized viewer title suffix
+              const lang = document.documentElement.lang === 'pl' ? 'pl' : 'en';
+              openViewer(list, title + ' ' + (i18n[lang].viewer_viz || '— Visualizations'));
+            } else if (action === 'schem') {
+              const raw = p.getAttribute('data-schem') || '';
+              const parts = raw.split('|').map(s => s.trim()).filter(Boolean);
+              if (!parts.length) {
+                const lang = document.documentElement.lang === 'pl' ? 'pl' : 'en';
+                openViewer([], title + ' ' + (i18n[lang].viewer_schem || '— Schematics'));
+                return;
+              }
+              const list = parts.map(src => ({ type: src.toLowerCase().endsWith('.pdf') ? 'pdf' : 'img', src, alt: title }));
+              const lang = document.documentElement.lang === 'pl' ? 'pl' : 'en';
+              openViewer(list, title + ' ' + (i18n[lang].viewer_schem || '— Schematics'));
+            }
+          })
+        })
+      });
+    })();
+  </script>
 </body>
+
 </html>
