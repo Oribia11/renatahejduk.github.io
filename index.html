@@ -696,6 +696,27 @@
         flex-direction: column;
         align-items: flex-start
       }
+
+      /* reduce heavy visuals and animations on small devices for performance */
+      .room svg {
+        filter: none
+      }
+
+      .plan path,
+      .plan circle,
+      .plan rect {
+        animation: none;
+        stroke-dashoffset: 0
+      }
+
+      .svc,
+      .card {
+        box-shadow: none
+      }
+
+      .hero-inner {
+        padding: 24px 14px
+      }
     }
 
     /* project modular layout */
@@ -747,30 +768,42 @@
       padding: 12px
     }
 
-    .viewer iframe,
-    .viewer img {
-      width: 100%;
-      height: 76vh;
-      border: 0;
-      display: block
-    }
+    .viewer iframe {
 
-    .viewer .meta {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 8px;
-      margin-bottom: 8px
-    }
+      .viewer iframe,
+      .viewer img {
+        width: 100%;
+        height: 76vh;
+        border: 0;
 
-    .viewer .meta .close {
-      margin-left: auto
-    }
+        .viewer img {
+          max-width: 100%;
+          max-height: 76vh;
+          width: auto;
+          height: auto;
+          display: block;
+          margin: 0 auto
+        }
 
-    .unavailable {
-      color: #999;
-      font-style: italic
-    }
+        display: block
+      }
+
+      .viewer .meta {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 8px
+      }
+
+      .viewer .meta .close {
+        margin-left: auto
+      }
+
+      .unavailable {
+        color: #999;
+        font-style: italic
+      }
   </style>
 </head>
 
@@ -916,11 +949,11 @@
       <h3 data-i18n="projA_title">Projekt A — Mieszkanie jednoosobowe</h3>
       <div class="proj-grid">
         <div class="proj-preview">
-          <img src="Projekt A/ProjA-prev1.png" alt="Preview 1" />
-          <img src="Projekt A/ProjA-prev2.png" alt="Preview 2" />
+          <img src="Projekt A/ProjA-prev1.png" alt="Preview 1" loading="lazy" />
+          <img src="Projekt A/ProjA-prev2.png" alt="Preview 2" loading="lazy" />
         </div>
         <div>
-          <p class="proj-desc" data-i18n="projA_desc">A: Mieszkanie jednoosobowe dla aktora teatralnego. Styl Art Deco.
+          <p class="proj-desc" data-i18n="projA_desc">Mieszkanie jednoosobowe dla aktora teatralnego. Styl Art Deco.
           </p>
           <div class="proj-actions">
             <button class="btn" data-action="viz" data-i18n="btn_viz">View visualizations</button>
@@ -941,11 +974,11 @@
       <h3 data-i18n="projB_title">Projekt B — Kuchnia w domu jednorodzinnym</h3>
       <div class="proj-grid">
         <div class="proj-preview">
-          <img src="Projekt B/ProjB-prev1.png" alt="Preview 1" />
-          <img src="Projekt B/ProjB-prev2.png" alt="Preview 2" />
+          <img src="Projekt B/ProjB-prev1.png" alt="Preview 1" loading="lazy" />
+          <img src="Projekt B/ProjB-prev2.png" alt="Preview 2" loading="lazy" />
         </div>
         <div>
-          <p class="proj-desc" data-i18n="projB_desc">B: Redesign mojego wlasnego salonu i kuchni. Mam nadzieje ze
+          <p class="proj-desc" data-i18n="projB_desc">Redesign mojego wlasnego salonu i kuchni. Mam nadzieje ze
             niedlugo wejdzie w zycie.</p>
           <div class="proj-actions">
             <button class="btn" data-action="viz" data-i18n="btn_viz">View visualizations</button>
@@ -1049,6 +1082,9 @@
           <button class="btn" id="viewerClose" data-i18n="viewer_close">Close</button>
         </div>
       </div>
+
+      <!-- PDF.js (renders PDFs inside the viewer to avoid browser PDF chrome) -->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
       <div id="viewerBody"></div>
       <div id="viewerNote" class="unavailable" style="display:none" data-i18n="viewer_na">Not available yet</div>
     </div>
@@ -1074,8 +1110,8 @@
         portfolio_title: "Portfolio", portfolio_intro: "Two projects that show the blend: vintage geometry + modern calm.",
         projA_title: "Projekt A — Mieszkanie jednoosobowe", projA_note: "Renovation — brass lines, arched openings, integrated storage.",
         projB_title: "Projekt B — Kuchnia (wizualizacje)", projB_note: "Concept studies: tone-on-tone palettes, curved millwork, and light.",
-        projA_desc: "A: One-person apartment for a theatre actor. Art Deco style.",
-        projB_desc: "B: Redesign of my own living room and kitchen. Hoping to realize soon.",
+        projA_desc: "One-person apartment for a theatre actor. Art Deco style.",
+        projB_desc: "Redesign of my own living room and kitchen. Hoping to realize soon.",
         viewer_prev: "Prev", viewer_next: "Next", viewer_close: "Close", viewer_na: "Not available yet",
         viewer_title: "Preview", viewer_viz: "— Visualizations", viewer_schem: "— Schematics",
         viewer_title: "Preview",
@@ -1100,8 +1136,8 @@
         portfolio_title: "Portfolio", portfolio_intro: "Dwa projekty łączące geometrię vintage ze spokojem nowoczesności.",
         projA_title: "Projekt A — Mieszkanie jednoosobowe", projA_note: "Renowacja mieszkania w Warszawie — mosiężne linie, łukowe przejścia i zabudowy.",
         projB_title: "Projekt B — Kuchnia (wizualizacje)", projB_note: "Studia koncepcyjne: ton-w-ton, miękkie łuki i światło.",
-        projA_desc: "A: Mieszkanie jednoosobowe dla aktora teatralnego. Styl Art Deco.",
-        projB_desc: "B: Redesign mojego wlasnego salonu i kuchni. Mam nadzieje ze niedlugo wejdzie w zycie.",
+        projA_desc: "Mieszkanie jednoosobowe dla aktora teatralnego. Styl Art Deco.",
+        projB_desc: "Redesign mojego wlasnego salonu i kuchni. Mam nadzieje ze niedlugo wejdzie w zycie.",
         viewer_prev: "Poprzedni", viewer_next: "Następny", viewer_close: "Zamknij", viewer_na: "Jeszcze niedostępne",
         viewer_title: "Podgląd", viewer_viz: "— Wizualizacje", viewer_schem: "— Rysunki",
         viewer_title: "Podgląd",
@@ -1186,8 +1222,12 @@
       const slides = sl.querySelectorAll('.slide');
       const prog = sl.querySelector('.prog');
       let idx = 0, timer = null, anim = null, dur = 4500;
+      // don't autoplay on coarse (touch) devices to reduce CPU on phones
+      const prefersCoarse = window.matchMedia && window.matchMedia('(pointer: coarse)').matches;
+      const allowAutoplay = !prefersCoarse;
       const set = () => track.style.transform = `translateX(${-idx * 100}%)`;
       const play = () => {
+        if (!allowAutoplay) return; // skip autoplay on touch devices
         stop(); prog.style.width = '0%'; anim = prog.animate([{ width: '0%' }, { width: '100%' }], { duration: dur, easing: 'linear' });
         timer = setTimeout(() => { idx = (idx + 1) % slides.length; set(); play(); }, dur);
       }
@@ -1228,18 +1268,65 @@
       const closeBtn = document.getElementById('viewerClose');
       let items = [], idx = 0;
 
+      let currentLoading = null;
+      async function renderPDFToContainer(url) {
+        // cancel previous if running
+        try { if (currentLoading && currentLoading.destroy) currentLoading.destroy(); } catch (e) { /* ignore */ }
+        body.innerHTML = '';
+        note.style.display = 'none';
+        if (!window['pdfjsLib']) {
+          // fallback to iframe when pdf.js not available
+          const iframe = document.createElement('iframe'); iframe.src = encodeURI(url); iframe.title = 'PDF'; iframe.loading = 'lazy'; body.appendChild(iframe); return;
+        }
+        const pdfjsLib = window['pdfjsLib'];
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js';
+        const loadingTask = pdfjsLib.getDocument(encodeURI(url));
+        currentLoading = loadingTask;
+        try {
+          const pdf = await loadingTask.promise;
+          // choose a scale that fits the viewer width (avoid rendering extremely large canvases on mobile)
+          for (let p = 1; p <= pdf.numPages; p++) {
+            const page = await pdf.getPage(p);
+            const baseViewport = page.getViewport({ scale: 1 });
+            const containerWidth = Math.max(300, body.clientWidth || (window.innerWidth * 0.9));
+            // account for devicePixelRatio to keep text crisp, but cap scale to avoid heavy work
+            const dpr = window.devicePixelRatio || 1;
+            const desiredScale = Math.min(1.6, (containerWidth / baseViewport.width) * dpr);
+            const viewport = page.getViewport({ scale: desiredScale });
+            const canvas = document.createElement('canvas');
+            canvas.style.display = 'block';
+            canvas.style.width = '100%';
+            canvas.style.height = 'auto';
+            const context = canvas.getContext('2d');
+            canvas.width = Math.floor(viewport.width);
+            canvas.height = Math.floor(viewport.height);
+            await page.render({ canvasContext: context, viewport }).promise;
+            body.appendChild(canvas);
+          }
+          // ensure scroll position is at top when new PDF is rendered
+          body.scrollTop = 0;
+        } catch (err) {
+          // on error fallback to iframe
+          body.innerHTML = '';
+          const iframe = document.createElement('iframe'); iframe.src = encodeURI(url); iframe.title = 'PDF'; iframe.loading = 'lazy'; body.appendChild(iframe);
+        }
+      }
+
       function showItem(i) {
         if (!items || items.length === 0) { body.innerHTML = ''; note.style.display = ''; prevBtn.disabled = true; nextBtn.disabled = true; return }
         idx = (i + items.length) % items.length;
-        body.innerHTML = '';
-        note.style.display = 'none';
         const it = items[idx];
         prevBtn.disabled = items.length <= 1;
         nextBtn.disabled = items.length <= 1;
+        // clear previous content (renderPDFToContainer handles emptying for PDFs)
         if (it.type === 'img') {
-          const img = document.createElement('img'); img.src = encodeURI(it.src); img.alt = it.alt || ''; body.appendChild(img);
+          currentLoading = null;
+          body.innerHTML = '';
+          note.style.display = 'none';
+          const img = document.createElement('img'); img.src = encodeURI(it.src); img.alt = it.alt || ''; img.loading = 'lazy'; body.appendChild(img);
         } else if (it.type === 'pdf') {
-          const iframe = document.createElement('iframe'); iframe.src = encodeURI(it.src); iframe.title = it.alt || 'PDF'; body.appendChild(iframe);
+          // render pages into the viewer using pdf.js (or iframe fallback)
+          renderPDFToContainer(it.src);
         }
       }
 
