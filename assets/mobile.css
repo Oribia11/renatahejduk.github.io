@@ -16,15 +16,29 @@
 
   /* Header: keep everything in a row without overflow */
   .nav { gap: 6px; padding-left: 6px; padding-right: 6px; align-items: center; }
-  .brand .name { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 120px; display: inline-block; }
+  .brand .name { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100px; display: inline-block; }
   .lang { gap: 6px; display:flex; align-items:center }
   .enterHeader { white-space: nowrap; padding-left:8px; padding-right:8px }
   .mobile-menu { display: inline-block; }
 
   /* keep nav links out of the header flow; show as overlay when opened */
+  /* allow the nav element to shrink so buttons are visible */
+  nav[aria-label="Primary"] { width: auto; flex: 1 1 auto; min-width: 0; }
   nav[aria-label="Primary"] ul { display: none; }
   nav[aria-label="Primary"].open { position: fixed; top: 56px; right: 8px; left: 8px; background: var(--card); border-radius: 8px; padding: 12px; box-shadow: 0 8px 20px rgba(0,0,0,.18); z-index: 200; }
   nav[aria-label="Primary"].open ul { display:flex; flex-direction: column; gap: 10px; }
+
+  /* ensure header children don't force overflow */
+  .nav > .brand, .nav > .lang, .nav > .mobile-menu { flex: 0 0 auto; }
+
+  /* compact language toggle: hide full buttons on small screens */
+  .lang-toggle { display: none; border: 1px solid var(--card-border); padding: 6px 8px; border-radius: 14px; background: none; color: var(--text) }
+  #lang-en, #lang-pl { display: inline-block }
+  /* when nav overlay active (mobile), show compact toggle instead of full buttons */
+  @media (max-width: 420px) {
+    #lang-en, #lang-pl { display: none !important }
+    .lang-toggle { display: inline-block }
+  }
 
   /* Ensure images scale properly inside cards */
   .proj-preview img { width: 100%; height: auto; display: block; }

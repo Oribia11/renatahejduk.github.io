@@ -906,6 +906,8 @@
       <div class="lang">
         <button id="lang-en" class="active">EN</button>
         <button id="lang-pl">PL</button>
+  <!-- compact language toggle for mobile -->
+  <button id="langToggle" class="lang-toggle" aria-label="Toggle language">EN</button>
   <button id="modeToggle" class="btn" title="Toggle site mode" data-i18n="mode_enter">SCHEMATIC</button>
   <!-- header Enter (mobile/compact) -->
   <button id="enterHeader" class="btn enterHeader" data-i18n="enter_btn">ENTER THE SPACE</button>
@@ -1248,12 +1250,22 @@
       const vTitle = document.getElementById('viewerTitle'); if (vTitle && i18n[lang].viewer_title) vTitle.textContent = i18n[lang].viewer_title;
       document.getElementById("lang-en").classList.toggle("active", lang === 'en');
       document.getElementById("lang-pl").classList.toggle("active", lang === 'pl');
+  const langToggleBtn = document.getElementById('langToggle'); if (langToggleBtn) langToggleBtn.textContent = (lang === 'pl') ? 'PL' : 'EN';
       // refresh mode labels after language change
       const currentMode = document.documentElement.classList.contains('mode-built') ? 'built' : 'blueprint';
       setMode(currentMode);
     };
     document.getElementById("lang-en").onclick = () => setLang('en');
     document.getElementById("lang-pl").onclick = () => setLang('pl');
+
+    // compact language toggle for very small screens
+    const langToggleBtn = document.getElementById('langToggle');
+    if (langToggleBtn) {
+      langToggleBtn.addEventListener('click', () => {
+        const cur = document.documentElement.lang === 'pl' ? 'pl' : 'en';
+        setLang(cur === 'en' ? 'pl' : 'en');
+      });
+    }
 
     /* ===== Mode toggle (schematic <-> built) ===== */
     function setMode(mode) {
