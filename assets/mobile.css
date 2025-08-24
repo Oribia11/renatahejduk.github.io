@@ -15,11 +15,16 @@
   .hero-title { font-size: clamp(1.6rem, 6.5vw, 2.2rem); }
 
   /* Header: keep everything in a row without overflow */
-  .nav { gap: 8px; padding-left: 8px; padding-right: 8px; }
-  .brand .name { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 140px; display: inline-block; }
-  .lang { gap: 6px; }
-  .enterHeader { white-space: nowrap; }
+  .nav { gap: 6px; padding-left: 6px; padding-right: 6px; align-items: center; }
+  .brand .name { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 120px; display: inline-block; }
+  .lang { gap: 6px; display:flex; align-items:center }
+  .enterHeader { white-space: nowrap; padding-left:8px; padding-right:8px }
   .mobile-menu { display: inline-block; }
+
+  /* keep nav links out of the header flow; show as overlay when opened */
+  nav[aria-label="Primary"] ul { display: none; }
+  nav[aria-label="Primary"].open { position: fixed; top: 56px; right: 8px; left: 8px; background: var(--card); border-radius: 8px; padding: 12px; box-shadow: 0 8px 20px rgba(0,0,0,.18); z-index: 200; }
+  nav[aria-label="Primary"].open ul { display:flex; flex-direction: column; gap: 10px; }
 
   /* Ensure images scale properly inside cards */
   .proj-preview img { width: 100%; height: auto; display: block; }
