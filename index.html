@@ -234,6 +234,9 @@
       gap: 8px
     }
 
+  /* header compact enter button (hidden on desktop) */
+  .enterHeader { display: none; }
+
     .lang button {
       background: none;
       border: 1px solid var(--card-border);
@@ -698,10 +701,18 @@
         grid-template-columns: 1fr
       }
 
+      /* place brand, controls and menu on a single row */
       .nav {
-        flex-direction: column;
-        align-items: flex-start
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
       }
+
+      .brand { flex: 0 0 auto; }
+      nav[aria-label="Primary"] { order: 3; width: 100%; }
+      .lang { order: 2; display:flex; align-items:center; gap:6px }
+      .mobile-menu { order: 4 }
+      .enterHeader { display: inline-block; order: 1; margin-left: 8px }
 
   /* stack nav links on small screens to avoid horizontal overflow */
   nav ul { flex-direction: column; gap: 10px; }
@@ -751,6 +762,16 @@
       /* make touch targets larger */
       .btn, .lang button, .mobile-menu { min-height: 44px; padding-top: 10px; padding-bottom: 10px }
     }
+
+  /* ensure portrait image is never cropped and shows fully */
+  .portrait img { width: 100%; height: auto; object-fit: contain; display:block }
+
+  /* project action buttons on mobile: side-by-side but not stretched tall */
+  .proj-actions { flex-wrap: wrap; }
+  .proj-actions .btn { flex: 1 1 auto; min-width: 120px; max-width: 48%; box-sizing: border-box; }
+
+  /* replace watermark animation: remove dash animation and use icon */
+  .watermark svg g { animation: none !important }
 
     /* extra small screen protections to avoid horizontal scroll */
     @media (max-width:420px) {
@@ -867,7 +888,9 @@
       <div class="lang">
         <button id="lang-en" class="active">EN</button>
         <button id="lang-pl">PL</button>
-        <button id="modeToggle" class="btn" title="Toggle site mode" data-i18n="mode_enter">SCHEMATIC</button>
+  <button id="modeToggle" class="btn" title="Toggle site mode" data-i18n="mode_enter">SCHEMATIC</button>
+  <!-- header Enter (mobile/compact) -->
+  <button id="enterHeader" class="btn enterHeader" data-i18n="enter_btn">ENTER THE SPACE</button>
       </div>
     </div>
   </header>
@@ -1087,20 +1110,19 @@
       </form>
       <div class="watermark card">
         <div>
-          <h3 data-i18n="contact_follow">Follow</h3>
-          <p><a class="hover-underline" href="https://instagram.com/renatahejduk" target="_blank"
-              rel="me noopener">Instagram</a></p>
-          <svg viewBox="0 0 600 180" aria-hidden="true" style="max-width:420px;margin:auto">
-            <g stroke="var(--accent)" fill="none" stroke-width="1.5">
-              <path d="M10 170 H590" />
-              <path d="M50 160 H550" />
-              <path d="M100 140 H500" />
-              <rect x="180" y="20" width="240" height="120" />
-              <path d="M180 80 H420" />
-              <path d="M300 20 V140" />
-            </g>
-          </svg>
-        </div>
+            <h3 data-i18n="contact_follow">Follow</h3>
+            <p>
+              <a class="hover-underline" href="https://instagram.com/renatahejduk" target="_blank" rel="me noopener" aria-label="Instagram">
+                <!-- simple Instagram icon -->
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <rect x="3" y="3" width="18" height="18" rx="5" stroke="var(--accent)" stroke-width="1.4" fill="none" />
+                  <circle cx="12" cy="12" r="3.2" stroke="var(--accent)" stroke-width="1.4" fill="none" />
+                  <circle cx="17.2" cy="6.8" r="0.8" fill="var(--accent)" />
+                </svg>
+                <span style="margin-left:8px;vertical-align:middle">@renatahejduk</span>
+              </a>
+            </p>
+          </div>
       </div>
     </div>
   </section>
@@ -1245,6 +1267,7 @@
     }
 
     document.getElementById('enter').addEventListener('click', toggleMode);
+  const enterHeaderBtn = document.getElementById('enterHeader'); if (enterHeaderBtn) enterHeaderBtn.addEventListener('click', toggleMode);
     document.getElementById('modeToggle').addEventListener('click', toggleMode);
     // initialize mode labels
     setMode(document.documentElement.classList.contains('mode-built') ? 'built' : 'blueprint');
