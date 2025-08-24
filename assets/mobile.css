@@ -22,6 +22,7 @@ body { font-size: 1rem; -webkit-font-smoothing: antialiased; -moz-osx-font-smoot
   .nav { gap: 6px; padding-left: 6px; padding-right: 6px; align-items: center; }
   .brand .name { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100px; display: inline-block; }
   .lang { gap: 6px; display:flex; align-items:center }
+  .lang button { margin: 0 4px; }
   .enterHeader { white-space: nowrap; padding-left:8px; padding-right:8px }
   .mobile-menu { display: inline-block; }
 
@@ -35,13 +36,17 @@ body { font-size: 1rem; -webkit-font-smoothing: antialiased; -moz-osx-font-smoot
   /* ensure header children don't force overflow */
   .nav > .brand, .nav > .lang, .nav > .mobile-menu { flex: 0 0 auto; }
 
-  /* compact language toggle: hide full buttons on small screens */
-  .lang-toggle { display: none; border: 1px solid var(--card-border); padding: 6px 8px; border-radius: 14px; background: none; color: var(--text) }
+  /* compact language toggle: hidden by default, shown on mobile up to 720px */
+  .lang-toggle { display: none; border: 1px solid var(--card-border); padding: 6px 8px; border-radius: 14px; background: none; color: var(--text); }
   #lang-en, #lang-pl { display: inline-block }
-  /* when nav overlay active (mobile), show compact toggle instead of full buttons */
-  @media (max-width: 420px) {
-    #lang-en, #lang-pl { display: none !important }
-    .lang-toggle { display: inline-block }
+
+  /* Apply compact toggle and hide full language buttons on devices up to 720px.
+     Use high-specificity and !important to override any lingering desktop rules. */
+  @media (max-width: 720px) {
+    .lang #lang-en, .lang #lang-pl { display: none !important; }
+    .lang-toggle { display: inline-block !important; }
+    /* hide hero enter on narrower screens to avoid duplicate enter buttons */
+    .hero .enter { display: none !important; }
   }
 
   /* Ensure images scale properly inside cards */
