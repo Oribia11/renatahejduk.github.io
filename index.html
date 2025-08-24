@@ -148,8 +148,8 @@
       box-shadow: var(--shadow)
     }
 
-  /* prevent long strings from breaking the layout */
-  h1,h2,h3,p,span,strong,label { word-wrap: break-word; word-break: break-word; }
+  /* prevent long strings from breaking the layout but avoid mid-word breaks */
+  h1,h2,h3,p,span,strong,label { overflow-wrap: break-word; word-break: normal; }
 
     /* ====================== NAV ====================== */
     header {
@@ -707,18 +707,23 @@
         grid-template-columns: 1fr
       }
 
-      /* place brand, controls and menu on a single row */
+      /* place brand, controls and menu on a single row and avoid wrapping */
       .nav {
         flex-direction: row;
         align-items: center;
         justify-content: space-between;
+        flex-wrap: nowrap;
+        gap: 10px;
       }
 
       .brand { flex: 0 0 auto; }
       nav[aria-label="Primary"] { order: 3; width: 100%; }
-      .lang { order: 2; display:flex; align-items:center; gap:6px }
-      .mobile-menu { order: 4 }
-  .enterHeader { display: inline-block; order: 1; margin-left: 8px }
+      .lang { order: 2; display:flex; align-items:center; gap:6px; flex: 0 0 auto }
+      .mobile-menu { order: 4; flex: 0 0 auto }
+      .enterHeader { display: inline-block; order: 1; margin-left: 8px; flex: 0 1 auto; min-width:0; white-space:nowrap }
+
+      /* hide hero enter on small screens to avoid duplicate Enter button */
+      .hero .enter { display: none }
   /* hide the desktop modeToggle on mobile so only the header Enter shows */
   #modeToggle { display: none; }
 
@@ -767,8 +772,11 @@
       nav[aria-label="Primary"] ul { display: none; }
       nav[aria-label="Primary"].open ul { display: flex; flex-direction: column; gap: 12px; }
 
-      /* make touch targets larger */
-      .btn, .lang button, .mobile-menu { min-height: 44px; padding-top: 10px; padding-bottom: 10px }
+  /* make touch targets larger */
+  .btn, .lang button, .mobile-menu { min-height: 44px; padding-top: 10px; padding-bottom: 10px }
+
+  /* ensure buttons don't break words mid-word; wrap at spaces */
+  .btn { word-break: normal; overflow-wrap: break-word }
     }
 
   /* ensure portrait image is never cropped and shows fully */
