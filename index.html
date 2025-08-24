@@ -12,6 +12,8 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Inter:wght@300;400;600&display=swap"
     rel="stylesheet">
+  <!-- Mobile-only overrides -->
+  <link rel="stylesheet" href="assets/mobile.css" media="(max-width:600px)">
   <style>
     /* ====================== DESIGN TOKENS ====================== */
     :root {
@@ -1469,6 +1471,15 @@
         })
       });
     })();
+
+    // defensive fallback: enforce full-width project buttons on small screens
+    document.addEventListener('DOMContentLoaded', function(){
+      if (window.innerWidth <= 600) {
+        document.querySelectorAll('.proj-actions .btn').forEach(b=>{
+          b.style.flex = '1 1 100%'; b.style.maxWidth = '100%'; b.style.minWidth = '0';
+        });
+      }
+    });
   </script>
 </body>
 

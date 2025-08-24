@@ -1,0 +1,33 @@
+/* Mobile-specific overrides to fix overflow and button layout */
+@media (max-width: 600px) {
+  html, body { max-width: 100%; overflow-x: hidden; }
+  .container { padding-left: 12px; padding-right: 12px; }
+
+  /* Stack project grid so images and text don't sit side-by-side */
+  .proj-grid { grid-template-columns: 1fr !important; gap: 12px; }
+  .proj-preview { order: 0; }
+
+  /* Make project action buttons readable and full-width */
+  .proj-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+  .proj-actions .btn { flex: 1 1 100%; max-width: 100%; min-width: 0; box-sizing: border-box; white-space: normal; }
+
+  /* Slightly reduce large hero title on small phones */
+  .hero-title { font-size: clamp(1.6rem, 6.5vw, 2.2rem); }
+
+  /* Header: keep everything in a row without overflow */
+  .nav { gap: 8px; padding-left: 8px; padding-right: 8px; }
+  .brand .name { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 140px; display: inline-block; }
+  .lang { gap: 6px; }
+  .enterHeader { white-space: nowrap; }
+  .mobile-menu { display: inline-block; }
+
+  /* Ensure images scale properly inside cards */
+  .proj-preview img { width: 100%; height: auto; display: block; }
+
+  /* Reduce spacing where it causes overflow */
+  .hero-inner { padding-left: 12px; padding-right: 12px; }
+  .hero-cta { justify-content: center; gap: 8px; }
+
+  /* prevent buttons or badges from forcing horizontal scroll */
+  .btn { max-width: 100%; box-sizing: border-box; }
+}
