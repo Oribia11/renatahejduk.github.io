@@ -1,71 +1,228 @@
 /* Mobile-specific overrides to fix overflow and button layout */
 /* Small-device consistency fixes (text autosize, smoothing) */
-html { -webkit-text-size-adjust: 100%; -moz-text-size-adjust: 100%; text-size-adjust: 100%; font-size: 16px; }
-body { font-size: 1rem; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+html {
+    -webkit-text-size-adjust: 100%;
+    -moz-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+    font-size: 16px;
+}
+
+body {
+    font-size: 1rem;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
 
 @media (max-width: 600px) {
-  html, body { max-width: 100%; overflow-x: hidden; }
-  .container { padding-left: 12px; padding-right: 12px; }
 
-  /* Stack project grid so images and text don't sit side-by-side */
-  .proj-grid { grid-template-columns: 1fr !important; gap: 12px; }
-  .proj-preview { order: 0; }
+    html,
+    body {
+        max-width: 100%;
+        overflow-x: hidden;
+    }
 
-  /* Make project action buttons readable and full-width */
-  .proj-actions { display: flex; gap: 8px; flex-wrap: wrap; }
-  .proj-actions .btn { flex: 1 1 100%; max-width: 100%; min-width: 0; box-sizing: border-box; white-space: normal; }
+    .container {
+        padding-left: 12px;
+        padding-right: 12px;
+    }
 
-  /* Slightly reduce large hero title on small phones */
-  .hero-title { font-size: clamp(1.6rem, 6.5vw, 2.2rem); }
+    /* Stack project grid so images and text don't sit side-by-side */
+    .proj-grid {
+        grid-template-columns: 1fr !important;
+        gap: 12px;
+    }
 
-  /* Header: keep everything in a row without overflow */
-  .nav { gap: 6px; padding-left: 6px; padding-right: 6px; align-items: center; }
-  .brand .name { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100px; display: inline-block; }
-  .lang { gap: 6px; display:flex; align-items:center }
-  .lang button { margin: 0 4px; }
-  .enterHeader { white-space: nowrap; padding-left:8px; padding-right:8px }
-  .mobile-menu { display: inline-block; }
+    .proj-preview {
+        order: 0;
+    }
 
-  /* keep nav links out of the header flow; show as overlay when opened */
-  /* allow the nav element to shrink so buttons are visible */
-  nav[aria-label="Primary"] { width: auto; flex: 1 1 auto; min-width: 0; }
-  nav[aria-label="Primary"] ul { display: none; }
-  nav[aria-label="Primary"].open { position: fixed; top: 56px; right: 8px; left: 8px; background: var(--card); border-radius: 8px; padding: 12px; box-shadow: 0 8px 20px rgba(0,0,0,.18); z-index: 200; }
-  nav[aria-label="Primary"].open ul { display:flex; flex-direction: column; gap: 10px; }
+    /* Make project action buttons readable and full-width */
+    .proj-actions {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+    }
 
-  /* ensure header children don't force overflow */
-  .nav > .brand, .nav > .lang, .nav > .mobile-menu { flex: 0 0 auto; }
+    .proj-actions .btn {
+        flex: 1 1 100%;
+        max-width: 100%;
+        min-width: 0;
+        box-sizing: border-box;
+        white-space: normal;
+    }
 
-  /* compact language toggle: hidden by default, shown on mobile up to 720px */
-  .lang-toggle { display: none; border: 1px solid var(--card-border); padding: 6px 8px; border-radius: 14px; background: none; color: var(--text); }
-  #lang-en, #lang-pl { display: inline-block }
+    /* Slightly reduce large hero title on small phones */
+    .hero-title {
+        font-size: clamp(1.6rem, 6.5vw, 2.2rem);
+    }
 
-  /* Apply compact toggle and hide full language buttons on devices up to 720px.
+    /* Header: keep everything in a row without overflow */
+    .nav {
+        gap: 6px;
+        padding-left: 6px;
+        padding-right: 6px;
+        align-items: center;
+    }
+
+    .brand .name {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 100px;
+        display: inline-block;
+    }
+
+    .lang {
+        gap: 6px;
+        display: flex;
+        align-items: center
+    }
+
+    .lang button {
+        margin: 0 4px;
+    }
+
+    .enterHeader {
+        white-space: nowrap;
+        padding-left: 8px;
+        padding-right: 8px
+    }
+
+    .mobile-menu {
+        display: inline-block;
+    }
+
+    /* keep nav links out of the header flow; show as overlay when opened */
+    /* allow the nav element to shrink so buttons are visible */
+    nav[aria-label="Primary"] {
+        width: auto;
+        flex: 1 1 auto;
+        min-width: 0;
+    }
+
+    nav[aria-label="Primary"] ul {
+        display: none;
+    }
+
+    nav[aria-label="Primary"].open {
+        position: fixed;
+        top: 56px;
+        right: 8px;
+        left: 8px;
+        background: var(--card);
+        border-radius: 8px;
+        padding: 12px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, .18);
+        z-index: 200;
+    }
+
+    nav[aria-label="Primary"].open ul {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    /* ensure header children don't force overflow */
+    .nav>.brand,
+    .nav>.lang,
+    .nav>.mobile-menu {
+        flex: 0 0 auto;
+    }
+
+    /* compact language toggle: hidden by default, shown on mobile up to 720px */
+    .lang-toggle {
+        display: none;
+        border: 1px solid var(--card-border);
+        padding: 6px 8px;
+        border-radius: 14px;
+        background: none;
+        color: var(--text);
+    }
+
+    #lang-en,
+    #lang-pl {
+        display: inline-block
+    }
+
+    /* Apply compact toggle and hide full language buttons on devices up to 720px.
      Use high-specificity and !important to override any lingering desktop rules. */
-  @media (max-width: 720px) {
-    .lang #lang-en, .lang #lang-pl { display: none !important; }
-    .lang-toggle { display: inline-block !important; }
-    /* hide hero enter on narrower screens to avoid duplicate enter buttons */
-    .hero .enter { display: none !important; }
-  }
+    @media (max-width: 720px) {
 
-  /* Ensure images scale properly inside cards */
-  .proj-preview img { width: 100%; height: auto; display: block; }
+        .lang #lang-en,
+        .lang #lang-pl {
+            display: none !important;
+        }
 
-  /* Reduce spacing where it causes overflow */
-  .hero-inner { padding-left: 12px; padding-right: 12px; }
-  .hero-cta { justify-content: center; gap: 8px; }
+        .lang-toggle {
+            display: inline-block !important;
+        }
 
-  /* prevent buttons or badges from forcing horizontal scroll */
-  .btn { max-width: 100%; box-sizing: border-box; }
+        /* hide hero enter on narrower screens to avoid duplicate enter buttons */
+        .hero .enter {
+            display: none !important;
+        }
+    }
+
+    /* Ensure images scale properly inside cards */
+    .proj-preview img {
+        width: 100%;
+        height: auto;
+        display: block;
+    }
+
+    /* Reduce spacing where it causes overflow */
+    .hero-inner {
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+
+    .hero-cta {
+        justify-content: center;
+        gap: 8px;
+    }
+
+    /* prevent buttons or badges from forcing horizontal scroll */
+    .btn {
+        max-width: 100%;
+        box-sizing: border-box;
+    }
 }
 
 /* Additional mobile flex-shrink and wrapping safeguards */
 @media (max-width:600px) {
-  .nav, .container, .proj-grid, .proj-preview { min-width: 0; }
-  .nav > * { min-width: 0; }
-  .nav > .brand, .nav > .lang, .nav > .mobile-menu { min-width: 0; }
-  .enterHeader, .mobile-menu, .lang-toggle { flex: 0 0 auto; min-width: 0; white-space: nowrap; }
-  .btn { overflow-wrap: break-word; word-break: normal; }
-  .hero-title { font-size: clamp(1.6rem, 6.5vw, 2.2rem); line-height: 1.08; }
+
+    .nav,
+    .container,
+    .proj-grid,
+    .proj-preview {
+        min-width: 0;
+    }
+
+    .nav>* {
+        min-width: 0;
+    }
+
+    .nav>.brand,
+    .nav>.lang,
+    .nav>.mobile-menu {
+        min-width: 0;
+    }
+
+    .enterHeader,
+    .mobile-menu,
+    .lang-toggle {
+        flex: 0 0 auto;
+        min-width: 0;
+        white-space: nowrap;
+    }
+
+    .btn {
+        overflow-wrap: break-word;
+        word-break: normal;
+    }
+
+    .hero-title {
+        font-size: clamp(1.6rem, 6.5vw, 2.2rem);
+        line-height: 1.08;
+    }
 }

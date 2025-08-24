@@ -1,0 +1,1058 @@
+/* ====================== DESIGN TOKENS ====================== */
+:root {
+    --bone: #F6F1E7;
+    --midnight: #0B2430;
+    /* blueprint background */
+    --ink: #222;
+    --brass: #B78B38;
+    --sage: #5E7D6A;
+    --terra: #B75C3B;
+    --grid: #124B61;
+    /* cyan-ish blueprint lines */
+    --card: #fff;
+    --maxw: 1200px;
+    --r: 12px;
+    --shadow: 0 12px 30px rgba(0, 0, 0, .1);
+    --accent: #B78B38;
+    --text: var(--ink);
+    --muted: rgba(0, 0, 0, .6);
+    --card-border: rgba(0, 0, 0, .08);
+    --btn-text: var(--text);
+}
+
+/* full-site theme overrides for blueprint vs built */
+.mode-blueprint {
+    --bone: #0B2430;
+    /* page background */
+    --ink: #E9F6FF;
+    /* primary text */
+    --card: #071A24;
+    /* card backgrounds */
+    --accent: #6EC1D6;
+    /* blueprint cyan accents */
+    --sage: #9FD7E6;
+    --shadow: none;
+    --text: #E9F6FF;
+    --muted: rgba(233, 246, 255, .85);
+    --card-border: rgba(255, 255, 255, .06);
+    --btn-text: var(--text);
+}
+
+.mode-built {
+    /* revert to lighter theme (keeps root defaults) */
+    --bone: #F6F1E7;
+    --ink: #222;
+    --card: #fff;
+    --accent: #B78B38;
+    --sage: #5E7D6A;
+    --shadow: 0 12px 30px rgba(0, 0, 0, .1);
+}
+
+* {
+    box-sizing: border-box
+}
+
+html,
+body {
+    height: 100%
+}
+
+body {
+    margin: 0;
+    font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    line-height: 1.55;
+    color: var(--text);
+    background: var(--bone);
+    overflow-x: hidden;
+}
+
+h1,
+h2,
+h3 {
+    font-family: Fraunces, serif;
+    color: var(--sage);
+    letter-spacing: .2px;
+    margin: .2em 0 .4em
+}
+
+h1 {
+    font-size: clamp(2.2rem, 5vw, 3.6rem)
+}
+
+h2 {
+    font-size: clamp(1.6rem, 3.4vw, 2.2rem)
+}
+
+a {
+    color: var(--sage);
+    text-decoration: none
+}
+
+.container {
+    max-width: var(--maxw);
+    margin: 0 auto;
+    padding: 0 20px
+}
+
+.btn {
+    display: inline-block;
+    padding: 12px 18px;
+    border: 1px solid var(--accent);
+    color: var(--btn-text);
+    background: transparent;
+    transition: .3s;
+    letter-spacing: .3px
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    background: var(--accent);
+    color: var(--btn-text)
+}
+
+.btn.solid {
+    background: var(--sage);
+    color: #fff;
+    border-color: var(--sage)
+}
+
+.btn.solid:hover {
+    background: #355a49
+}
+
+.hr {
+    height: 1px;
+    background: linear-gradient(90deg, var(--accent), transparent);
+    margin: 20px 0 26px
+}
+
+.card {
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: var(--r);
+    box-shadow: var(--shadow)
+}
+
+/* prevent long strings from breaking the layout but avoid mid-word breaks */
+h1,
+h2,
+h3,
+p,
+span,
+strong,
+label {
+    overflow-wrap: break-word;
+    word-break: normal;
+}
+
+/* ====================== NAV ====================== */
+header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: color-mix(in srgb, var(--card) 86%, transparent 14%);
+    backdrop-filter: blur(6px);
+    border-bottom: 1px solid var(--card-border)
+}
+
+.nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 20px;
+    gap: 16px
+}
+
+/* allow header content to wrap instead of overflowing */
+.nav {
+    flex-wrap: wrap;
+}
+
+.brand {
+    display: flex;
+    gap: 10px;
+    align-items: center
+}
+
+.brand .logo {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    border: 1px solid var(--accent);
+    position: relative;
+    overflow: hidden
+}
+
+.brand .logo::before {
+    content: "";
+    position: absolute;
+    inset: 6px;
+    border: 1px solid var(--accent);
+    clip-path: polygon(0 50%, 50% 0, 100% 50%, 50% 100%)
+}
+
+.brand .name {
+    font-family: Fraunces, serif;
+    color: var(--sage);
+    font-weight: 700
+}
+
+nav ul {
+    display: flex;
+    gap: 18px;
+    margin: 0;
+    padding: 0;
+    list-style: none
+}
+
+nav a {
+    position: relative
+}
+
+nav a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 100%;
+    bottom: -3px;
+    height: 1.5px;
+    background: linear-gradient(90deg, var(--accent), transparent);
+    transition: right .35s
+}
+
+nav a:hover::after {
+    right: 0
+}
+
+.lang {
+    display: flex;
+    gap: 8px
+}
+
+/* header compact enter button (hidden on desktop) */
+.enterHeader {
+    display: none;
+}
+
+/* mobile menu hidden on desktop by default */
+.mobile-menu {
+    display: none;
+}
+
+/* ensure desktop toggle (modeToggle) shows by default */
+#modeToggle {
+    display: inline-block;
+}
+
+.lang button {
+    background: none;
+    border: 1px solid var(--card-border);
+    padding: 6px 10px;
+    border-radius: 18px;
+    cursor: pointer;
+    font: inherit;
+    color: var(--muted)
+}
+
+.lang button.active {
+    border-color: var(--accent);
+    color: var(--btn-text)
+}
+
+/* ====================== HERO — BLUEPRINT → BUILT SPACE ====================== */
+.hero {
+    position: relative;
+    min-height: 88vh;
+    display: grid;
+    place-items: center;
+    overflow: hidden
+}
+
+.mode-blueprint .hero {
+    background: var(--midnight);
+    color: #E9F6FF
+}
+
+/* make buttons readable on the dark blueprint background */
+.mode-blueprint .btn {
+    color: #E9F6FF;
+    border-color: rgba(255, 255, 255, 0.28);
+    background: rgba(255, 255, 255, 0.03);
+}
+
+.mode-blueprint .btn:hover {
+    transform: translateY(-2px);
+    background: rgba(255, 255, 255, 0.12);
+    color: #0B2430;
+}
+
+.mode-blueprint .btn.solid {
+    background: var(--accent);
+    color: #0B2430;
+    border-color: var(--accent);
+}
+
+.mode-blueprint .btn.solid:hover {
+    background: #ffd38a;
+}
+
+.mode-built .hero {
+    background: var(--bone);
+    color: var(--ink)
+}
+
+.hero .grid {
+    position: absolute;
+    inset: -10%;
+    background: linear-gradient(transparent 95%, rgba(255, 255, 255, .06) 0) 0 0/100% 42px, linear-gradient(90deg, transparent 95%, rgba(255, 255, 255, .06) 0) 0 0/42px 100%;
+    opacity: .8;
+    pointer-events: none;
+    mix-blend-mode: screen;
+}
+
+.mode-built .hero .grid {
+    opacity: 0
+}
+
+.hero-inner {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding: 60px 20px;
+    max-width: 980px
+}
+
+.hero-title {
+    margin: 0 0 10px;
+    font-size: clamp(2.2rem, 5vw, 3.6rem);
+    line-height: 1.1
+}
+
+.hero-sub {
+    margin: 0 auto 18px;
+    max-width: 760px;
+    opacity: .9
+}
+
+.hero-cta {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap
+}
+
+.enter {
+    margin-top: 14px
+}
+
+/* blueprint plan (draws in) */
+.plan {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    display: grid;
+    place-items: center;
+    pointer-events: none
+}
+
+.plan svg {
+    width: min(1100px, 96vw);
+    height: auto
+}
+
+.plan path,
+.plan circle,
+.plan rect {
+    stroke: #6EC1D6;
+    fill: none;
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    opacity: .95;
+    stroke-dasharray: 900;
+    stroke-dashoffset: 900;
+    animation: draw 2.6s ease forwards
+}
+
+.plan .d2 {
+    animation-delay: .3s
+}
+
+.plan .d3 {
+    animation-delay: .6s
+}
+
+.plan .d4 {
+    animation-delay: .9s
+}
+
+@keyframes draw {
+    to {
+        stroke-dashoffset: 0
+    }
+}
+
+/* built room (revealed after enter) */
+.room {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    display: grid;
+    place-items: center;
+    opacity: 0;
+    transform: translateY(20px) scale(.98);
+    transition: opacity .9s ease, transform .9s cubic-bezier(.2, .6, .2, 1)
+}
+
+.mode-built .room {
+    opacity: 1;
+    transform: none
+}
+
+.room svg {
+    width: min(1100px, 96vw);
+    height: auto;
+    filter: drop-shadow(0 18px 40px rgba(0, 0, 0, .08))
+}
+
+/* hide blueprint when built */
+.mode-built .plan {
+    opacity: 0;
+    transition: opacity .6s ease
+}
+
+/* ====================== GENERIC SECTIONS ====================== */
+section {
+    padding: 70px 0
+}
+
+/* lightweight reveal for better performance (no blur) */
+.reveal {
+    opacity: 0;
+    transform: translateY(12px);
+    will-change: opacity, transform;
+}
+
+.reveal.revealed {
+    opacity: 1;
+    transform: none;
+    transition: opacity .6s cubic-bezier(.2, .9, .2, 1), transform .6s cubic-bezier(.2, .9, .2, 1);
+}
+
+/* ====================== ABOUT ====================== */
+#about .wrap {
+    display: grid;
+    grid-template-columns: 1.05fr 1.25fr;
+    gap: 28px
+}
+
+.portrait {
+    position: relative;
+    background: var(--card);
+    aspect-ratio: 4/5;
+    display: grid;
+    place-items: center;
+    border: 1px solid var(--card-border)
+}
+
+.portrait::before {
+    content: "";
+    position: absolute;
+    inset: 14px;
+    border: 2px solid var(--accent);
+    clip-path: polygon(5% 5%, 95% 5%, 95% 95%, 5% 95%, 5% 60%, 10% 60%, 10% 90%, 90% 90%, 90% 10%, 10% 10%, 10% 40%, 5% 40%)
+}
+
+.portrait svg {
+    width: 80%;
+    opacity: .9
+}
+
+.bio p {
+    margin: .5em 0 1em
+}
+
+/* ====================== PORTFOLIO ====================== */
+#portfolio .intro {
+    margin-bottom: 22px;
+    color: var(--muted)
+}
+
+.proj {
+    margin: 26px 0;
+    border-left: 3px solid var(--accent);
+    padding-left: 16px
+}
+
+.slider {
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--r);
+    border: 1px solid rgba(0, 0, 0, .08);
+    background: #fff
+}
+
+.slides {
+    display: flex;
+    transition: transform .6s cubic-bezier(.2, .7, .2, 1)
+}
+
+.slide {
+    min-width: 100%;
+    aspect-ratio: 16/9;
+    display: grid;
+    place-items: center;
+    background: color-mix(in srgb, var(--card) 92%, var(--bone) 8%);
+}
+
+.arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, .9);
+    border: 1px solid var(--accent);
+    width: 44px;
+    height: 44px;
+    display: grid;
+    place-items: center;
+    cursor: pointer
+}
+
+.arrow:hover {
+    background: var(--accent);
+    color: var(--btn-text)
+}
+
+.arrow.prev {
+    left: 10px
+}
+
+.arrow.next {
+    right: 10px
+}
+
+.prog {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 3px;
+    width: 0;
+    background: var(--accent)
+}
+
+.proj-meta {
+    display: flex;
+    gap: 14px;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: 10px
+}
+
+.pdf {
+    padding: 8px 12px;
+    border: 1px dashed var(--accent)
+}
+
+/* ====================== SERVICES ====================== */
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 22px;
+    align-items: start;
+}
+
+.svc {
+    padding: 26px;
+    border-radius: 12px;
+    border: 1px solid rgba(0, 0, 0, .06);
+    background: linear-gradient(180deg, var(--card), color-mix(in srgb, var(--card) 92%, black 8%));
+    position: relative;
+    overflow: hidden;
+    transition: transform .36s cubic-bezier(.2, .9, .2, 1), box-shadow .36s;
+    box-shadow: 0 8px 22px rgba(0, 0, 0, .06);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.svc::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 6px;
+    background: linear-gradient(180deg, var(--accent), var(--sage));
+    border-top-left-radius: 12px;
+    border-bottom-left-radius: 12px;
+    transform-origin: left center;
+    transition: transform .4s;
+}
+
+.svc h3 {
+    margin: 0 0 6px;
+    font-size: 1.05rem
+}
+
+.svc p {
+    margin: 0;
+    color: var(--muted)
+}
+
+.svc:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 24px 40px rgba(0, 0, 0, .12)
+}
+
+.svc:hover::before {
+    transform: scaleY(1.02)
+}
+
+.services-grid .svc:nth-child(2) {
+    background: linear-gradient(180deg, color-mix(in srgb, var(--card) 95%, var(--accent) 5%), var(--card));
+    border-color: var(--card-border);
+    transform-origin: center;
+}
+
+/* ====================== CONTACT ====================== */
+.contact-grid {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 22px
+}
+
+form .row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px
+}
+
+form input,
+form textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--card-border);
+    background: var(--card);
+    border-radius: 6px;
+    font: inherit;
+    color: var(--text)
+}
+
+form textarea {
+    min-height: 120px;
+    resize: vertical
+}
+
+.watermark {
+    background: repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(0, 0, 0, .04) 40px);
+    border: 1px solid rgba(0, 0, 0, .08);
+    display: grid;
+    place-items: center;
+    text-align: center;
+    padding: 20px;
+    overflow: hidden
+}
+
+.watermark svg g {
+    animation: dash 10s linear infinite
+}
+
+@keyframes dash {
+    0% {
+        stroke-dasharray: 0 1000
+    }
+
+    50% {
+        stroke-dasharray: 200 1000
+    }
+
+    100% {
+        stroke-dasharray: 0 1000
+    }
+}
+
+/* ====================== FOOTER ====================== */
+footer {
+    padding: 38px 0 64px;
+    border-top: 1px solid rgba(0, 0, 0, .08);
+    margin-top: 30px
+}
+
+.accentbar {
+    height: 4px;
+    background: linear-gradient(90deg, var(--sage), var(--accent));
+    margin-bottom: 12px
+}
+
+/* ====================== RESPONSIVE ====================== */
+@media (max-width:980px) {
+    #about .wrap {
+        grid-template-columns: 1fr
+    }
+
+    .contact-grid {
+        grid-template-columns: 1fr
+    }
+
+    .services-grid {
+        grid-template-columns: 1fr 1fr
+    }
+}
+
+@media (max-width:600px) {
+    .services-grid {
+        grid-template-columns: 1fr
+    }
+
+    /* place brand, controls and menu on a single row and avoid wrapping */
+    .nav {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: nowrap;
+        gap: 10px;
+    }
+
+    .brand {
+        flex: 0 0 auto;
+    }
+
+    nav[aria-label="Primary"] {
+        order: 3;
+        width: 100%;
+    }
+
+    .lang {
+        order: 2;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        flex: 0 0 auto
+    }
+
+    .mobile-menu {
+        order: 4;
+        flex: 0 0 auto
+    }
+
+    .enterHeader {
+        display: inline-block;
+        order: 1;
+        margin-left: 8px;
+        flex: 0 1 auto;
+        min-width: 0;
+        white-space: nowrap
+    }
+
+    /* hide hero enter on small screens to avoid duplicate Enter button */
+    .hero .enter {
+        display: none
+    }
+
+    /* hide the desktop modeToggle on mobile so only the header Enter shows */
+    #modeToggle {
+        display: none;
+    }
+
+    /* stack nav links on small screens to avoid horizontal overflow */
+    nav ul {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    /* constrain buttons and inline elements */
+    .btn {
+        max-width: 100%;
+        box-sizing: border-box;
+        word-break: break-word;
+    }
+
+    /* reduce heavy visuals and animations on small devices for performance */
+    .room svg {
+        filter: none
+    }
+
+    .plan path,
+    .plan circle,
+    .plan rect {
+        animation: none;
+        stroke-dashoffset: 0
+    }
+
+    .svc,
+    .card {
+        box-shadow: none
+    }
+
+    .hero-inner {
+        padding: 24px 14px
+    }
+
+    /* mobile-friendly hero height */
+    .hero {
+        min-height: 60vh;
+        padding-top: 20px;
+        padding-bottom: 20px
+    }
+
+    /* mobile menu button */
+    .mobile-menu {
+        display: inline-block;
+        background: none;
+        border: 1px solid var(--card-border);
+        padding: 8px 10px;
+        font-size: 20px;
+        border-radius: 8px;
+        margin-left: 6px;
+        cursor: pointer;
+    }
+
+    /* hide nav links by default on small screens; will be toggled by JS */
+    nav[aria-label="Primary"] ul {
+        display: none;
+    }
+
+    nav[aria-label="Primary"].open ul {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    /* make touch targets larger */
+    .btn,
+    .lang button,
+    .mobile-menu {
+        min-height: 44px;
+        padding-top: 10px;
+        padding-bottom: 10px
+    }
+
+    /* ensure buttons don't break words mid-word; wrap at spaces */
+    .btn {
+        word-break: normal;
+        overflow-wrap: break-word
+    }
+}
+
+/* ensure portrait image is never cropped and shows fully */
+.portrait img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    display: block
+}
+
+/* project action buttons on mobile: side-by-side but not stretched tall */
+.proj-actions {
+    flex-wrap: wrap;
+}
+
+.proj-actions .btn {
+    flex: 1 1 auto;
+    min-width: 120px;
+    max-width: 48%;
+    box-sizing: border-box;
+}
+
+/* replace watermark animation: remove dash animation and use icon */
+.watermark svg g {
+    animation: none !important
+}
+
+/* extra small screen protections to avoid horizontal scroll */
+@media (max-width:420px) {
+
+    html,
+    body {
+        max-width: 100%;
+        overflow-x: hidden;
+    }
+
+    .container {
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+
+    .proj-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .proj-preview img {
+        width: 100%;
+        height: auto;
+    }
+
+    .hero .plan svg,
+    .room svg {
+        width: 100%;
+        height: auto;
+        max-width: 100%;
+    }
+
+    .lang {
+        gap: 6px;
+    }
+
+    .nav {
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+
+    .hero-cta .btn {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+}
+
+/* project modular layout */
+.proj-grid {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 16px;
+    align-items: center
+}
+
+.proj-preview {
+    display: flex;
+    flex-direction: column;
+    gap: 8px
+}
+
+.proj-preview img {
+    width: 100%;
+    height: auto;
+    border-radius: 6px;
+    display: block
+}
+
+.proj-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 10px
+}
+
+/* viewer modal */
+.viewer {
+    position: fixed;
+    inset: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 120
+}
+
+.viewer.active {
+    display: flex
+}
+
+.viewer .card {
+    width: min(1100px, 94vw);
+    max-height: 86vh;
+    overflow: auto;
+    padding: 12px;
+    box-sizing: border-box;
+}
+
+/* ensure embedded media never overflow the viewport on small screens */
+.viewer iframe,
+.viewer img,
+.viewer canvas {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    display: block;
+    border: 0;
+}
+
+.viewer .meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+    flex-wrap: wrap;
+}
+
+.viewer .meta .close {
+    margin-left: auto
+}
+
+.unavailable {
+    color: #999;
+    font-style: italic
+}
+
+/* Modular projects list — friendly cards inspired by architectural portfolios */
+.projects-list .note { color: var(--muted); padding: 12px 0 }
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 22px;
+    align-items: start;
+}
+.projects-grid .proj.card {
+    display: block;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+    border-radius: 14px;
+    transition: transform .36s cubic-bezier(.2,.9,.2,1), box-shadow .36s;
+    background: linear-gradient(180deg, var(--card), color-mix(in srgb, var(--card) 96%, black 4%));
+    border: 1px solid var(--card-border);
+}
+.projects-grid .proj.card:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(0,0,0,0.08) }
+.proj-card-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
+.proj-media { position: relative; min-height: 240px; overflow: hidden; display: grid; place-items: center; background: color-mix(in srgb, var(--card) 92%, var(--bone) 8%); }
+.proj-media img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .45s cubic-bezier(.2,.9,.2,1); }
+.proj-media:hover img { transform: scale(1.06); }
+.media-cta { position: absolute; left: 12px; bottom: 12px; background: rgba(0,0,0,0.5); color: #fff; border: 0; padding: 8px 12px; border-radius: 8px; cursor: pointer; backdrop-filter: blur(4px); }
+.proj-info { padding: 18px; display: flex; flex-direction: column; gap: 12px; }
+.proj-info h3 { margin: 0; color: var(--sage); font-size: 1.1rem }
+.proj-desc { color: var(--muted); margin: 0; font-size: .95rem }
+.proj-meta { display:flex; gap:8px; align-items:center; flex-wrap:wrap }
+.badge { padding: 6px 10px; border-radius: 999px; font-size: .82rem; background: color-mix(in srgb, var(--card) 88%, var(--accent) 12%); color: var(--text); border: 1px solid rgba(0,0,0,0.04); }
+.proj-tags { display:flex; gap:8px; align-items:center; flex-wrap:wrap }
+.proj-actions { display:flex; gap:10px }
+.proj-actions .btn { padding: 10px 12px; border-radius: 8px; font-size: .95rem }
+.btn.ghost { background: transparent; border: 1px solid rgba(0,0,0,0.06); }
+.btn.primary { background: var(--accent); color: var(--card); border-color: var(--accent); }
+
+/* secondary button style for real pictures (subtle filled) */
+.btn.secondary { background: linear-gradient(180deg, color-mix(in srgb, var(--card) 90%, var(--accent) 10%), var(--card)); color: var(--text); border: 1px solid rgba(0,0,0,0.06); }
+.btn.secondary:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,0.06); }
+
+/* three-button layout: on wide screens show inline, on mobile stack with full width buttons */
+.proj-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+.proj-actions .btn { flex: 1 1 auto; min-width: 120px; }
+
+@media (max-width:600px) {
+    .proj-actions { flex-direction: column; }
+    .proj-actions .btn { max-width: 100%; }
+}
+
+@media (max-width:900px) {
+    .proj-card-inner { grid-template-columns: 1fr; }
+    .proj-media { min-height: 200px }
+}
+
+@media (max-width:420px) {
+    .proj-media { min-height: 160px }
+    .proj-info { padding: 12px }
+    .btn { padding: 10px }
+}
+
+@media (max-width:720px) {
+    .projects-list .proj.card { flex-direction: column }
+    .proj-left { width: 100%; flex-basis: auto }
+    .proj-actions .btn { max-width: 100%; min-width: 0 }
+}
+
+/* Fullscreen collage overlay for visualizations */
+.collage-fullscreen {
+    position: fixed; inset: 0; z-index: 200; background: rgba(6,10,12,0.94); display: flex; align-items: center; justify-content: center; overflow: auto;
+}
+.collage-inner { max-width: 1600px; width: 96%; padding: 24px; box-sizing: border-box; }
+.collage-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; }
+.collage-grid img, .collage-grid canvas, .collage-grid iframe { width: 100%; height: auto; display: block; border-radius: 8px }
+.collage-close { position: fixed; right: 18px; top: 18px; z-index: 210 }
