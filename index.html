@@ -237,6 +237,12 @@
   /* header compact enter button (hidden on desktop) */
   .enterHeader { display: none; }
 
+  /* mobile menu hidden on desktop by default */
+  .mobile-menu { display: none; }
+
+  /* ensure desktop toggle (modeToggle) shows by default */
+  #modeToggle { display: inline-block; }
+
     .lang button {
       background: none;
       border: 1px solid var(--card-border);
@@ -712,7 +718,9 @@
       nav[aria-label="Primary"] { order: 3; width: 100%; }
       .lang { order: 2; display:flex; align-items:center; gap:6px }
       .mobile-menu { order: 4 }
-      .enterHeader { display: inline-block; order: 1; margin-left: 8px }
+  .enterHeader { display: inline-block; order: 1; margin-left: 8px }
+  /* hide the desktop modeToggle on mobile so only the header Enter shows */
+  #modeToggle { display: none; }
 
   /* stack nav links on small screens to avoid horizontal overflow */
   nav ul { flex-direction: column; gap: 10px; }
@@ -874,7 +882,7 @@
         <div class="logo" aria-hidden="true"></div>
         <div class="name">Renata Hejduk</div>
       </div>
-  <nav aria-label="Primary">
+  <nav id="primaryNav" aria-label="Primary">
         <ul>
           <li><a href="#hero" data-i18n="nav_home">Home</a></li>
           <li><a href="#about" data-i18n="nav_about">About</a></li>
