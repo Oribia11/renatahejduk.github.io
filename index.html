@@ -252,7 +252,7 @@
     /* ====================== HERO — BLUEPRINT → BUILT SPACE ====================== */
     .hero {
       position: relative;
-      min-height: 88vh;
+  min-height: 88vh;
       display: grid;
       place-items: center;
       overflow: hidden
@@ -729,6 +729,27 @@
       .hero-inner {
         padding: 24px 14px
       }
+      /* mobile-friendly hero height */
+      .hero { min-height: 60vh; padding-top: 20px; padding-bottom: 20px }
+
+      /* mobile menu button */
+      .mobile-menu {
+        display: inline-block;
+        background: none;
+        border: 1px solid var(--card-border);
+        padding: 8px 10px;
+        font-size: 20px;
+        border-radius: 8px;
+        margin-left: 6px;
+        cursor: pointer;
+      }
+
+      /* hide nav links by default on small screens; will be toggled by JS */
+      nav[aria-label="Primary"] ul { display: none; }
+      nav[aria-label="Primary"].open ul { display: flex; flex-direction: column; gap: 12px; }
+
+      /* make touch targets larger */
+      .btn, .lang button, .mobile-menu { min-height: 44px; padding-top: 10px; padding-bottom: 10px }
     }
 
     /* extra small screen protections to avoid horizontal scroll */
@@ -832,7 +853,7 @@
         <div class="logo" aria-hidden="true"></div>
         <div class="name">Renata Hejduk</div>
       </div>
-      <nav aria-label="Primary">
+  <nav aria-label="Primary">
         <ul>
           <li><a href="#hero" data-i18n="nav_home">Home</a></li>
           <li><a href="#about" data-i18n="nav_about">About</a></li>
@@ -841,6 +862,8 @@
           <li><a href="#contact" data-i18n="nav_contact">Contact</a></li>
         </ul>
       </nav>
+  <!-- mobile menu button -->
+  <button id="mobileMenuBtn" class="mobile-menu" aria-label="Toggle menu" aria-expanded="false" aria-controls="primaryNav">☰</button>
       <div class="lang">
         <button id="lang-en" class="active">EN</button>
         <button id="lang-pl">PL</button>
@@ -1228,6 +1251,19 @@
 
     // now initialize language (refreshes UI text + mode labels)
     setLang('en');
+
+    /* ===== Mobile nav toggle ===== */
+    (function(){
+      const btn = document.getElementById('mobileMenuBtn');
+      const nav = document.querySelector('nav[aria-label="Primary"]');
+      if (!btn || !nav) return;
+      btn.addEventListener('click', ()=>{
+        const open = nav.classList.toggle('open');
+        btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      });
+      // close nav when a link is clicked
+      nav.querySelectorAll('a').forEach(a=> a.addEventListener('click', ()=>{ nav.classList.remove('open'); btn.setAttribute('aria-expanded','false'); }));
+    })();
 
     /* ===== Reveal on scroll ===== */
     const io = new IntersectionObserver((es) => { es.forEach(en => { if (en.isIntersecting) { en.target.classList.add('revealed'); io.unobserve(en.target) } }) }, { threshold: .12 });
