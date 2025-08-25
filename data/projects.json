@@ -1,86 +1,102 @@
 [
-  {
-    "id": "A",
-    "status": "to_be_realized",
-    "title_en": "Projekt A — One-person apartment",
-    "title_pl": "Projekt A — Mieszkanie jednoosobowe",
-    "description_en": "One-person apartment for a theatre actor. Art Deco style.",
-    "description_pl": "Mieszkanie jednoosobowe dla aktora teatralnego. Styl Art Deco.",
-    "note_en": "Renovation — brass lines, arched openings, integrated storage.",
-    "note_pl": "Renowacja mieszkania w Warszawie — mosiężne linie, łukowe przejścia i zabudowy.",
-    "preview": ["Projekt A/ProjA-prev1.png", "Projekt A/ProjA-prev2.png"],
-    "viz": [
-      "Projekt A/Wizka 1.png",
-      "Projekt A/Wizka 2.png",
-      "Projekt A/Wizka 3.png",
-      "Projekt A/Wizka 4.png",
-      "Projekt A/Wizka 5.png",
-      "Projekt A/Wizka 6.png",
-      "Projekt A/Wizka 7.png",
-      "Projekt A/Wizka 8.png"
-    ],
-    "rys": ["Projekt A/Rys 1.png", "Projekt A/Rys 2.png"],
-    "schem": ["Projekt A/Projekt A - plany.pdf"]
-  },
-  {
-    "id": "B",
-    "status": "to_be_realized",
-    "title_en": "Projekt B — Kitchen in a family house",
-    "title_pl": "Projekt B — Kuchnia (wizualizacje)",
-    "description_en": "Redesign of my own living room and kitchen. Hoping to realize soon.",
-    "description_pl": "Redesign mojego wlasnego salonu i kuchni. Mam nadzieje ze niedlugo wejdzie w zycie.",
-    "note_en": "Concept studies: tone-on-tone palettes, curved millwork, and light.",
-    "note_pl": "Studium koncepcyjne kuchni: materiały, układ i światło.",
-    "preview": ["Projekt B/ProjB-prev1.png", "Projekt B/ProjB-prev2.png"],
-    "viz": ["Projekt B/Zrzut ekranu 2025-07-13 o 16.47.06.png", "Projekt B/Zrzut ekranu 2025-07-13 o 16.54.26.png", "Projekt B/Zrzut ekranu 2025-07-13 o 18.31.28.png", "Projekt B/Zrzut ekranu 2025-07-13 o 18.40.32.png"],
-    "schem": []
-  },
-  {
-    "id": "C",
-    "status": "realized",
-    "title_en": "Projekt C — Completed residence",
-    "title_pl": "Projekt C — Zrealizowany projekt",
-    "description_en": "Apartment that reminds you of the sea and the beach. I needed to add Art Deco features.",
-    "description_pl": "Zrealizowana renowacja mieszkania z naciskiem na detale materiałowe.",
-    "note_en": "Completed — photo gallery available.",
-    "note_pl": "Zrealizowano — galeria zdjęć.",
-    "preview": [
-      "Projekt C/C1.jpeg",
-      "Projekt C/C2.jpeg"
-    ],
-    "viz": [
-      "Projekt C/C1.jpeg",
-      "Projekt C/C2.jpeg",
-      "Projekt C/C3.jpeg",
-      "Projekt C/C4.jpeg",
-      "Projekt C/C5.jpeg",
-      "Projekt C/p1.jpeg"
-    ],
-    "schem": []
-  },
-  {
-    "id": "D",
-    "status": "realized",
-    "title_en": "Projekt D — Completed interior",
-    "title_pl": "Projekt D — Zrealizowane wnętrze",
-    "description_en": "Designed with care for a couple wanting to move in Warsaw Ochota in a building with history!",
-    "description_pl": "Zrealizowany niewielki projekt wnętrza z dobranymi wykończeniami.",
-    "note_en": "Completed — view pictures.",
-    "note_pl": "Zrealizowano — zobacz zdjęcia.",
-    "preview": [
-      "Projekt D/d1.jpeg",
-      "Projekt D/D2.jpeg"
-    ],
-    "viz": [
-      "Projekt D/d1.jpeg",
-      "Projekt D/D2.jpeg",
-      "Projekt D/D3.jpeg",
-      "Projekt D/D4.jpeg",
-      "Projekt D/D5.jpeg",
-      "Projekt D/D6.jpeg",
-      "Projekt D/D7.jpeg",
-      "Projekt D/D8.jpeg"
-    ],
-    "schem": []
-  }
+	{
+		"id": "A",
+		"status": "to_be_realized",
+		"title_en": "Projekt A — One-person apartment",
+		"title_pl": "Projekt A — Mieszkanie jednoosobowe",
+		"description_en": "One-person apartment for a theatre actor. Art Deco style.",
+		"description_pl": "Mieszkanie jednoosobowe dla aktora teatralnego. Styl Art Deco.",
+		"note_en": "Renovation — brass lines, arched openings, integrated storage.",
+		"note_pl": "Renowacja mieszkania w Warszawie — mosiężne linie, łukowe przejścia i zabudowy.",
+		"preview": [
+			"Projekt A/ProjA-prev1.png",
+			"Projekt A/ProjA-prev2.png"
+		],
+		"viz": [
+			"Projekt A/Wizka 1.png",
+			"Projekt A/Wizka 2.png",
+			"Projekt A/Wizka 3.png",
+			"Projekt A/Wizka 4.png",
+			"Projekt A/Wizka 5.png",
+			"Projekt A/Wizka 6.png",
+			"Projekt A/Wizka 7.png",
+			"Projekt A/Wizka 8.png"
+		],
+		"rys": [
+			"Projekt A/Rys 1.png",
+			"Projekt A/Rys 2.png"
+		],
+		"schem": [
+			"Projekt A/Projekt A - plany.pdf"
+		]
+	},
+	{
+		"id": "B",
+		"status": "to_be_realized",
+		"title_en": "Projekt B — Kitchen in a family house",
+		"title_pl": "Projekt B — Kuchnia (wizualizacje)",
+		"description_en": "Redesign of my own living room and kitchen. Hoping to realize soon.",
+		"description_pl": "Redesign mojego wlasnego salonu i kuchni. Mam nadzieje ze niedlugo wejdzie w zycie.",
+		"note_en": "Concept studies: tone-on-tone palettes, curved millwork, and light.",
+		"note_pl": "Studium koncepcyjne kuchni: materiały, układ i światło.",
+		"preview": [
+			"Projekt B/ProjB-prev1.png",
+			"Projekt B/ProjB-prev2.png"
+		],
+		"viz": [
+			"Projekt B/Zrzut ekranu 2025-07-13 o 16.47.06.png",
+			"Projekt B/Zrzut ekranu 2025-07-13 o 16.54.26.png",
+			"Projekt B/Zrzut ekranu 2025-07-13 o 18.31.28.png",
+			"Projekt B/Zrzut ekranu 2025-07-13 o 18.40.32.png"
+		],
+		"schem": []
+	},
+	{
+		"id": "C",
+		"status": "realized",
+		"title_en": "Projekt C — Completed residence",
+		"title_pl": "Projekt C — Zrealizowany projekt",
+		"description_en": "Apartment that reminds you of the sea and the beach. I needed to add Art Deco features.",
+		"description_pl": "Zrealizowana renowacja mieszkania z naciskiem na detale materiałowe.",
+		"note_en": "Completed — photo gallery available.",
+		"note_pl": "Zrealizowano — galeria zdjęć.",
+		"preview": [
+			"Projekt C/C1.jpeg",
+			"Projekt C/C2.jpeg"
+		],
+		"viz": [
+			"Projekt C/C1.jpeg",
+			"Projekt C/C2.jpeg",
+			"Projekt C/C3.jpeg",
+			"Projekt C/C4.jpeg",
+			"Projekt C/C5.jpeg",
+			"Projekt C/p1.jpeg"
+		],
+		"schem": []
+	},
+	{
+		"id": "D",
+		"status": "realized",
+		"title_en": "Projekt D — Completed interior",
+		"title_pl": "Projekt D — Zrealizowane wnętrze",
+		"description_en": "Designed with care for a couple wanting to move in Warsaw Ochota in a building with history!",
+		"description_pl": "Zrealizowany niewielki projekt wnętrza z dobranymi wykończeniami.",
+		"note_en": "Completed — view pictures.",
+		"note_pl": "Zrealizowano — zobacz zdjęcia.",
+		"preview": [
+			"Projekt D/d1.jpeg",
+			"Projekt D/D2.jpeg"
+		],
+		"viz": [
+			"Projekt D/d1.jpeg",
+			"Projekt D/D2.jpeg",
+			"Projekt D/D3.jpeg",
+			"Projekt D/D4.jpeg",
+			"Projekt D/D5.jpeg",
+			"Projekt D/D6.jpeg",
+			"Projekt D/D7.jpeg",
+			"Projekt D/D8.jpeg"
+		],
+		"schem": []
+	}
 ]

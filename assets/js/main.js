@@ -231,12 +231,12 @@ const RH = (function () {
 
         document.getElementById('contactForm') && (document.getElementById('contactForm').onsubmit = mailtoSubmit);
 
-    initMobileNav(); initReveal(); initSliders(); initLangCleanup();
+        initMobileNav(); initReveal(); initSliders(); initLangCleanup();
 
-    // render projects first so the viewer can attach to generated nodes
-    try { await renderProjects(); } catch (err) { console.warn('Projects failed to load', err); }
-    // initialize viewer after projects exist
-    initViewer();
+        // render projects first so the viewer can attach to generated nodes
+        try { await renderProjects(); } catch (err) { console.warn('Projects failed to load', err); }
+        // initialize viewer after projects exist
+        initViewer();
 
         // set initial UI state
         applyI18n(state.lang); setMode(state.mode);
