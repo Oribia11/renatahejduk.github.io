@@ -1,0 +1,19 @@
+FIXES for mobile web: 
+
+- make sure its friendly for iphone AND android
+- Make the top bar contain everything in a row (name, PL/EN toggle, ENTER SPACES button, menu button)
+- make sure any pictures or text are not cut. I can tell for example that the phone number and profile pic are a bit cut on the right side
+
+
+FIXES for web:
+
+- some pictures are cut and you can only see a part of it ( in project C for example). 
+- please add semi transparent arrows so you can tell when you're scrolling pictures
+
+
+Note: Don't be afraid to restructure it again so everthing fits nicely on the page and is super intuitive. 
+
+
+IDEAS: 
+
+- Redirect to different web page when entering a project? 

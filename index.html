@@ -159,9 +159,17 @@
     <h2 data-i18n="portfolio_title">Portfolio</h2>
     <p class="intro" data-i18n="portfolio_intro">Two projects that show the blend: vintage geometry + modern calm.</p>
 
-    <div id="projectsList" class="projects-list reveal">
-      <!-- Projects will be rendered here from data/projects.json by assets/js/main.js -->
-      <div class="note">Loading projects…</div>
+    <!-- Projects rendered from data/projects.json - JS will populate the two groups below -->
+    <div id="projectsGroups">
+      <section id="toBeRealized" class="projects-group">
+        <h3 class="group-title" data-i18n="group_tbr">To be realized</h3>
+        <div class="projects-list" id="toBeRealizedList" aria-live="polite"></div>
+      </section>
+
+      <section id="realized" class="projects-group">
+        <h3 class="group-title" data-i18n="group_real">Realized</h3>
+        <div class="projects-list" id="realizedList" aria-live="polite"></div>
+      </section>
     </div>
   </section>
 
@@ -248,18 +256,23 @@
   <!-- Viewer modal -->
   <div class="viewer" id="viewer" aria-hidden="true">
     <div class="card">
-      <div class="meta">
+      <!-- PDF.js (renders PDFs inside the viewer to avoid browser PDF chrome) -->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
+
+      <!-- left & right large touch/click zones for navigation -->
+      <button class="viewer-zone left" aria-hidden="true" data-nav="prev" tabindex="-1"></button>
+      <button class="viewer-zone right" aria-hidden="true" data-nav="next" tabindex="-1"></button>
+
+      <div id="viewerBody"></div>
+
+      <!-- bottom caption + close -->
+      <div class="viewer-bottom">
         <strong id="viewerTitle" data-i18n="viewer_title">Preview</strong>
-        <div>
-          <button class="btn" id="viewerPrev" data-i18n="viewer_prev">Prev</button>
-          <button class="btn" id="viewerNext" data-i18n="viewer_next">Next</button>
+        <div class="viewer-controls">
           <button class="btn" id="viewerClose" data-i18n="viewer_close">Close</button>
         </div>
       </div>
 
-      <!-- PDF.js (renders PDFs inside the viewer to avoid browser PDF chrome) -->
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
-      <div id="viewerBody"></div>
       <div id="viewerNote" class="unavailable" style="display:none" data-i18n="viewer_na">Not available yet</div>
     </div>
   </div>

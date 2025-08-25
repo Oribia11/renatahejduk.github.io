@@ -315,6 +315,57 @@ nav a:hover::after {
 }
 
 .hero-inner {
+/* grouped projects */
++.projects-group {
+    margin: 18px 0 28px;
++}
++
++.projects-group .group-title {
++    margin: 0 0 10px; 
++    font-size: 1.1rem; 
++    color: var(--muted);
++}
++
++.projects-list {
++    display: grid; 
++    grid-template-columns: 1fr 1fr; 
++    gap: 18px;
++}
++
++.proj.card {
++    padding: 14px;
++    position: relative;
++}
++
++.badge-completed {
++    position: absolute;
++    top: 10px;
++    right: 10px;
++    background: rgba(0,0,0,0.08);
++    border-radius: 999px;
++    padding: 6px 10px;
++    font-size: 0.85rem;
++    color: var(--muted);
++}
++
++.media-cta.real {
++    position: absolute;
++    inset: 0;
++    display: grid;
++    place-items: center;
++    background: rgba(255,255,255,0.02);
++    border-radius: 12px;
++    border: 1px dashed rgba(255,255,255,0.04);
++    color: var(--muted);
++    cursor: pointer;
++    backdrop-filter: blur(2px);
++}
++
++@media (max-width:780px) {
++    .projects-list { grid-template-columns: 1fr; }
++    .proj-grid { grid-template-columns: 140px 1fr; }
++}
+*** End Patch
     position: relative;
     z-index: 2;
     text-align: center;
@@ -922,7 +973,14 @@ footer {
     width: 100%;
     height: auto;
     border-radius: 6px;
-    display: block
+    display: block;
+    transition: transform .28s cubic-bezier(.2,.9,.2,1), box-shadow .18s;
+}
+
+.proj-preview img:hover,
+.proj-preview img:focus {
+    transform: scale(1.03);
+    box-shadow: 0 18px 40px rgba(0,0,0,0.08);
 }
 
 .proj-actions {
@@ -930,6 +988,24 @@ footer {
     gap: 8px;
     margin-top: 10px
 }
+
+/* make action buttons more prominent in both modes */
+.proj-actions .btn {
+    border-radius: 8px;
+    padding: 10px 12px;
+    background: transparent;
+    color: var(--btn-text);
+    border: 1px solid rgba(0,0,0,0.06);
+    transition: background .16s, transform .12s, box-shadow .12s;
+}
+.proj-actions .btn:hover:not(:disabled) { transform: translateY(-3px); box-shadow: 0 10px 24px rgba(0,0,0,0.08); }
+.proj-actions .btn:disabled { opacity: 0.45; cursor: not-allowed; }
+
+/* ensure good spacing on project meta and notes */
+.proj-meta { margin-top: 8px; display:flex; gap:12px; align-items:center; color:var(--muted); }
+
+/* consistent card inner layout */
+.proj-grid { align-items: start; gap: 14px; }
 
 /* viewer modal */
 .viewer {
@@ -947,31 +1023,183 @@ footer {
 }
 
 .viewer .card {
-    width: min(1100px, 94vw);
-    max-height: 86vh;
-    overflow: auto;
-    padding: 12px;
-    box-sizing: border-box;
+    width: 92%;
+    max-width: 1100px;
+    max-height: 90%;
+    overflow: hidden;
+    position: relative;
+    padding: 0;
 }
 
-/* ensure embedded media never overflow the viewport on small screens */
-.viewer iframe,
-.viewer img,
-.viewer canvas {
-    width: 100%;
+#viewerBody {
+    background: #000;
+    color: #fff;
+    overflow: auto;
+    height: calc(100% - 64px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#viewerBody img,
+#viewerBody canvas,
+#viewerBody iframe {
     max-width: 100%;
     height: auto;
     display: block;
-    border: 0;
 }
 
-.viewer .meta {
+.viewer-zone {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 30%;
+    background: transparent;
+    border: none;
+    padding: 0;
+}
+
+.viewer-zone.left {
+    left: 0;
+}
+
+.viewer-zone.right {
+    right: 0;
+}
+
+.viewer-bottom {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 64px;
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 12px 18px;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.5) 60%, rgba(0, 0, 0, 0.7) 100%);
+    color: #fff;
+}
+
+.viewer-bottom #viewerTitle {
+    font-weight: 700;
+}
+
+.viewer-bottom .viewer-controls {
+    display: flex;
     gap: 8px;
-    margin-bottom: 8px;
-    flex-wrap: wrap;
+}
+
+.viewer .unavailable {
+    padding: 28px;
+    text-align: center;
+    color: var(--muted);
+}
+
+@media (max-width:720px) {
+    .viewer-zone {
+        width: 40%;
+    }
+
+    .viewer .card {
+        width: 100%;
+        height: 100%;
+        border-radius: 0;
+    }
+
+    #viewerBody {
+        height: calc(100% - 72px);
+    }
+}
+
+/* grouped projects */
+.projects-group {
+    margin: 18px 0 28px;
+}
+
+.projects-group .group-title {
+    margin: 0 0 10px;
+    font-size: 1.1rem;
+    color: var(--muted);
+}
+
+.projects-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+}
+
+.proj.card {
+    padding: 18px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.badge-completed {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: rgba(0,0,0,0.08);
+    border-radius: 999px;
+    padding: 6px 10px;
+    font-size: 0.85rem;
+    color: var(--muted);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.16);
+}
+
+/* badge visibility tweaks per mode */
+.mode-built .badge-completed {
+    background: var(--accent);
+    color: var(--card);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+}
+.mode-blueprint .badge-completed {
+    background: rgba(255,255,255,0.06);
+    color: var(--text);
+    border: 1px solid rgba(255,255,255,0.04);
+}
+
+/* realized project CTA: use mode-aware contrast so the pill is readable in both themes */
+.media-cta.real {
+    position: absolute;
+    left: 50%;
+    bottom: 12px;
+    transform: translateX(-50%);
+    padding: 10px 14px;
+    border-radius: 999px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    cursor: pointer;
+    z-index: 6;
+    transition: transform .12s ease, background .15s ease, box-shadow .12s ease;
+}
+.mode-built .media-cta.real {
+    background: rgba(0,0,0,0.55);
+    color: var(--card);
+    border: 1px solid rgba(255,255,255,0.08);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+}
+.mode-built .media-cta.real:hover,
+.mode-built .media-cta.real:focus { background: rgba(0,0,0,0.72); transform: translateX(-50%) translateY(-3px); }
+.mode-blueprint .media-cta.real {
+    background: rgba(255,255,255,0.08);
+    color: var(--text);
+    border: 1px solid rgba(255,255,255,0.12);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.18);
+}
+.mode-blueprint .media-cta.real:hover,
+.mode-blueprint .media-cta.real:focus { background: rgba(255,255,255,0.14); transform: translateX(-50%) translateY(-3px); }
+
+/* ensure cards align and have consistent heights so realized cards don't look broken */
+.projects-list { align-items: stretch; }
+.proj.card { min-height: 220px; }
+
+@media (max-width:780px) {
+    .projects-list { grid-template-columns: 1fr; }
+    .proj-grid { grid-template-columns: 140px 1fr; }
 }
 
 .viewer .meta .close {
@@ -982,77 +1210,3 @@ footer {
     color: #999;
     font-style: italic
 }
-
-/* Modular projects list — friendly cards inspired by architectural portfolios */
-.projects-list .note { color: var(--muted); padding: 12px 0 }
-.projects-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 22px;
-    align-items: start;
-}
-.projects-grid .proj.card {
-    display: block;
-    padding: 0;
-    margin: 0;
-    overflow: hidden;
-    border-radius: 14px;
-    transition: transform .36s cubic-bezier(.2,.9,.2,1), box-shadow .36s;
-    background: linear-gradient(180deg, var(--card), color-mix(in srgb, var(--card) 96%, black 4%));
-    border: 1px solid var(--card-border);
-}
-.projects-grid .proj.card:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(0,0,0,0.08) }
-.proj-card-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
-.proj-media { position: relative; min-height: 240px; overflow: hidden; display: grid; place-items: center; background: color-mix(in srgb, var(--card) 92%, var(--bone) 8%); }
-.proj-media img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .45s cubic-bezier(.2,.9,.2,1); }
-.proj-media:hover img { transform: scale(1.06); }
-.media-cta { position: absolute; left: 12px; bottom: 12px; background: rgba(0,0,0,0.5); color: #fff; border: 0; padding: 8px 12px; border-radius: 8px; cursor: pointer; backdrop-filter: blur(4px); }
-.proj-info { padding: 18px; display: flex; flex-direction: column; gap: 12px; }
-.proj-info h3 { margin: 0; color: var(--sage); font-size: 1.1rem }
-.proj-desc { color: var(--muted); margin: 0; font-size: .95rem }
-.proj-meta { display:flex; gap:8px; align-items:center; flex-wrap:wrap }
-.badge { padding: 6px 10px; border-radius: 999px; font-size: .82rem; background: color-mix(in srgb, var(--card) 88%, var(--accent) 12%); color: var(--text); border: 1px solid rgba(0,0,0,0.04); }
-.proj-tags { display:flex; gap:8px; align-items:center; flex-wrap:wrap }
-.proj-actions { display:flex; gap:10px }
-.proj-actions .btn { padding: 10px 12px; border-radius: 8px; font-size: .95rem }
-.btn.ghost { background: transparent; border: 1px solid rgba(0,0,0,0.06); }
-.btn.primary { background: var(--accent); color: var(--card); border-color: var(--accent); }
-
-/* secondary button style for real pictures (subtle filled) */
-.btn.secondary { background: linear-gradient(180deg, color-mix(in srgb, var(--card) 90%, var(--accent) 10%), var(--card)); color: var(--text); border: 1px solid rgba(0,0,0,0.06); }
-.btn.secondary:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,0.06); }
-
-/* three-button layout: on wide screens show inline, on mobile stack with full width buttons */
-.proj-actions { display: flex; gap: 10px; flex-wrap: wrap; }
-.proj-actions .btn { flex: 1 1 auto; min-width: 120px; }
-
-@media (max-width:600px) {
-    .proj-actions { flex-direction: column; }
-    .proj-actions .btn { max-width: 100%; }
-}
-
-@media (max-width:900px) {
-    .proj-card-inner { grid-template-columns: 1fr; }
-    .proj-media { min-height: 200px }
-}
-
-@media (max-width:420px) {
-    .proj-media { min-height: 160px }
-    .proj-info { padding: 12px }
-    .btn { padding: 10px }
-}
-
-@media (max-width:720px) {
-    .projects-list .proj.card { flex-direction: column }
-    .proj-left { width: 100%; flex-basis: auto }
-    .proj-actions .btn { max-width: 100%; min-width: 0 }
-}
-
-/* Fullscreen collage overlay for visualizations */
-.collage-fullscreen {
-    position: fixed; inset: 0; z-index: 200; background: rgba(6,10,12,0.94); display: flex; align-items: center; justify-content: center; overflow: auto;
-}
-.collage-inner { max-width: 1600px; width: 96%; padding: 24px; box-sizing: border-box; }
-.collage-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; }
-.collage-grid img, .collage-grid canvas, .collage-grid iframe { width: 100%; height: auto; display: block; border-radius: 8px }
-.collage-close { position: fixed; right: 18px; top: 18px; z-index: 210 }
