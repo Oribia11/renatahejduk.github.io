@@ -7,13 +7,13 @@ FIXES for mobile web:
 
 FIXES for web:
 
-- some pictures are cut and you can only see a part of it ( in project C for example). 
-- please add semi transparent arrows so you can tell when you're scrolling pictures
-
-
-Note: Don't be afraid to restructure it again so everthing fits nicely on the page and is super intuitive. 
-
-
+- important: picures are still cut (Prject C is an example). I want to see the whole picture with no scrolling. 
+- fix the header, the buttons are misaligned and the text is off center
+- make sure no buttons overlay with the text on the page
+- fix the spacing between all components on the website, they're off and look unnattural 
+- instagram button look unnatrual too 
 IDEAS: 
 
-- Redirect to different web page when entering a project? 
+- still: Redirect to different web page when entering a certain project?!
+
+Note: Don't be afraid to restructure it again so everthing fits nicely on the page and is super intuitive. 

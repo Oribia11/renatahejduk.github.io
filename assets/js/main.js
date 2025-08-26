@@ -192,6 +192,11 @@ const RH = (function () {
         // interactions
         if (leftZone) leftZone.addEventListener('click', (e) => { e.stopPropagation(); if (items && items.length) showItem(idx - 1); });
         if (rightZone) rightZone.addEventListener('click', (e) => { e.stopPropagation(); if (items && items.length) showItem(idx + 1); });
+        // visible arrow buttons will be wired by markup when present
+        const arrowLeft = document.querySelector('.viewer-arrow.left');
+        const arrowRight = document.querySelector('.viewer-arrow.right');
+        if (arrowLeft) arrowLeft.addEventListener('click', (e) => { e.stopPropagation(); if (items && items.length) showItem(idx - 1); });
+        if (arrowRight) arrowRight.addEventListener('click', (e) => { e.stopPropagation(); if (items && items.length) showItem(idx + 1); });
         if (closeBtn) closeBtn.addEventListener('click', closeViewer);
         // clicking outside (on backdrop) closes
         viewer.addEventListener('click', (e) => { if (e.target === viewer) closeViewer(); });

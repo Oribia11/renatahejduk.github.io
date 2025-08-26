@@ -1,0 +1,76 @@
+/* ui-hotfix.css
+
+Purpose: Small override layer that fixes desktop layout issues without changing markup.
+Scope: layout and small utilities only. Imported after main.css so these rules win.
+*/
+
+:root{
+  --s1:.25rem; --s2:.5rem; --s3:.75rem; --s4:1rem; --s5:1.5rem; --s6:2rem; --s7:3rem;
+}
+
+/* Spacing rhythm */
+section{ padding-block: clamp(24px,6vw,64px); }
+section > * + *{ margin-block-start: var(--s4); }
+
+/* Image containment: ensure no internal scrollbars or cropping */
+.img-frame{ display:flex; align-items:center; justify-content:center; background:#f7f7f7; aspect-ratio: var(--ratio, 4/3); max-height: min(80vh, 720px); overflow:hidden; }
+.img-frame > img{ width:100%; height:100%; object-fit:contain; object-position:center; display:block; }
+
+/* Preserve intrinsic sizing when available */
+img[width][height]{ height:auto; }
+
+/* Header alignment */
+.site-header, header .nav{ display:flex; align-items:center; justify-content:space-between; gap:12px; }
+.site-header .actions, header .lang{ display:flex; align-items:center; gap:12px; }
+.site-header a, .site-header button, header .nav a, header .nav button{ display:inline-flex; align-items:center; justify-content:center; height:40px; padding-inline:16px; line-height:1; }
+
+/* Prevent overlays in flagged regions */
+[data-no-overlap] *{ position:static !important; }
+.overlay-intent{ position:relative; }
+
+/* Instagram button: icon-only / subtle ghost */
+.btn-ig{ display:inline-flex; align-items:center; justify-content:center; min-width:40px; min-height:40px; padding:0; border-radius:8px; background:transparent; border:1px solid transparent; }
+.btn-ig svg{ width:20px; height:20px; display:block; }
+.btn-ig:focus{ outline:3px solid rgba(183,139,56,0.18); outline-offset:2px; }
+
+/* Gallery arrows */
+.gallery__arrow{ position:absolute; inset-block:0; width:3rem; display:grid; place-items:center; opacity:.7; background:rgba(0,0,0,0); border:none; }
+.gallery__arrow:hover,.gallery__arrow:focus-visible{ opacity:.95; }
+.gallery__arrow--left{ inset-inline-start:.25rem; }
+.gallery__arrow--right{ inset-inline-end:.25rem; }
+
+/* Viewer containment adjustments to avoid inner scrollbars */
+.viewer .card{ max-height:90vh; overflow:visible; }
+#viewerBody{ background:#000; color:#fff; overflow:hidden; height:calc(100% - 64px); display:flex; align-items:center; justify-content:center; }
+#viewerBody > *{ max-width:100%; max-height:calc(80vh - 80px); }
+#viewerBody img, #viewerBody canvas, #viewerBody iframe{ width:auto; max-width:100%; height:auto; max-height:calc(80vh - 80px); object-fit:contain; }
+
+/* ensure project preview images sit inside frames if JS didn't add the wrapper */
+.proj-preview img{ object-fit:contain; width:100%; height:auto; }
+
+/* prevent buttons overlapping text: make buttons flow and not absolutely positioned */
+button, a.btn{ position:relative; z-index:2; }
+
+/* small utility to keep brand centered when header items vary */
+.brand{ display:flex; align-items:center; gap:10px; }
+.brand .name{ text-align:center; min-width:160px; }
+
+/* gentle adjustments to arrow buttons in sliders to match accessibility requirements */
+.arrow, .gallery__arrow, .viewer-zone{ background:transparent; }
+.arrow:focus, .gallery__arrow:focus, .viewer-zone:focus{ box-shadow:0 0 0 3px rgba(183,139,56,0.16); }
+
+/* make instagram link in watermark compact and icon-only on desktop */
+.watermark a{ display:inline-flex; align-items:center; gap:8px; padding:6px 8px; border-radius:8px; }
+.watermark a svg{ width:20px; height:20px; }
+.watermark a span{ display:inline-block; }
+@media(min-width:1024px){ .watermark a span{ display:none; } }
+
+/* Ensure consistent card padding and prevent huge gaps */
+.proj.card{ padding:16px; }
+.projects-list{ gap:18px; }
+
+/* Avoid content overlap in hero */
+.hero-inner{ z-index:3; }
+
+/* Safety: don't allow accidental horizontal overflows */
+html,body{ overflow-x:hidden; }
